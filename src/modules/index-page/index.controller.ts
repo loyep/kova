@@ -33,7 +33,7 @@ export class AppController {
   // }
 
   @Get('/')
-  @SsrRender()
+  @SsrRender({ stream: false })
   async handlerIndex(): Promise<any> {
     // if (req.res) {
     console.log('ttt')
