@@ -40,7 +40,9 @@ export class SsrRenderInterceptor implements NestInterceptor {
     const key = req.url
     if (cache) {
       result = await this.cache.get(key)
-    } else {
+    }
+    
+    if (!result) {
       result = await firstValueFrom(next.handle())
       if (result instanceof RedirectException) {
         res.redirect(result.getRedirectUrl())
