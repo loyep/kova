@@ -32,34 +32,34 @@ export class SsrRenderInterceptor implements NestInterceptor {
   async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<any>> {
     const http = context.switchToHttp()
     const req: Request = http.getRequest()
-    const res = http.getResponse()
+    const res: Response = http.getResponse()
     const ssrRenderMeta = this.reflector.get(SSR_RENDER_METADATA, context.getHandler());
+    const { cache = false, ...options } = { cache: false, stream: true, ...ssrRenderMeta }
     let result: any
     const key = req.url
-    result = await this.cache.get(key)
-    if (!result) {
+    if (cache) {
+      result = await this.cache.get(key)
+    } else {
       result = await firstValueFrom(next.handle())
-      if (ssrRenderMeta) {
-        const options = { stream: true, ...ssrRenderMeta }
-        if (result instanceof RedirectException) {
-          res.redirect(result.getRedirectUrl())
-          return
-        } else {
-          this.renderContext = {
-            request: req,
-            response: res,
-            ...result
+      if (result instanceof RedirectException) {
+        res.redirect(result.getRedirectUrl())
+        return
+      } else {
+        this.renderContext = {
+          request: req,
+          response: res,
+          ...result
+        }
+        try {
+          const content = await this.getRenderContent(options)
+          if (content instanceof Stream) {
+            return of(await this.sendStream(res, content))
+          } else {
+            this.cache.set(key, content, 3600)
           }
-          try {
-            result = await this.getRenderContent(options)
-            if (result instanceof Stream) {
-              return of(await this.sendStream(res, result))
-            } else {
-              this.cache.set(key, result, 3600)
-            }
-          } catch (error) {
-            throw new InternalServerErrorException(error.message);
-          }
+          return of(content)
+        } catch (error) {
+          throw new InternalServerErrorException(error.message);
         }
       }
     }

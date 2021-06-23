@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import { SProps, IContext } from 'ssr-types'
-import Slider from '@/components/slider'
+import { SProps, IContext } from 'ssr-types-react'
+import { Slider } from '@/components/slider'
 import Rectangle from '@/components/rectangle'
 import Search from '@/components/search'
 import { IData } from '@/interface'

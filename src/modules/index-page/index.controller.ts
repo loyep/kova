@@ -1,42 +1,21 @@
-import { Controller, Get, Inject } from '@nestjs/common'
+import { Controller, Get, Inject, Req } from '@nestjs/common'
 import { ApiService } from './index.service'
 // import { LoggerService } from 'src/core/logger'
-import { SsrRender } from 'src/core/render'
+import { SsrRender } from '@/core/render'
+import { Request } from 'express'
+import { RedirectException } from '@/core/exceptions/redirect.exception'
 
 @Controller('/')
 export class AppController {
-  //
-  // @Inject(LoggerService) private readonly logger: LoggerService
-  //
   @Inject(ApiService) private readonly apiService: ApiService
-
-  // @Get('/')
-  // async handlerIndex(@Req() req: Request, @Res() res: Response): Promise<any> {
-  //   console.log(this.logger)
-  //   try {
-  //     const ctx = {
-  //       request: req,
-  //       response: res,
-  //       apiService: this.apiService
-  //     }
-  //     const stream = await render<Readable>(ctx, {
-  //       stream: true
-  //     })
-  //     stream.pipe(res, { end: false })
-  //     stream.on('end', () => {
-  //       res.end()
-  //     })
-  //   } catch (error) {
-  //     console.log(error)
-  //     res.status(500).send(error)
-  //   }
-  // }
 
   @Get('/')
   @SsrRender({ stream: false })
-  async handlerIndex(): Promise<any> {
+  async handlerIndex(@Req() req: Request): Promise<any> {
+    if (req.query.fc) {
+      throw new RedirectException('/fff', 302)
+    }
     // if (req.res) {
-    console.log('ttt')
     //   req.res.redirect(302, '/fff')
     //   return 
     // }

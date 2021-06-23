@@ -49,8 +49,9 @@
     "ssr": "^5.5.61",
     "ssr-plugin-nestjs": "^5.5.61",
     "ssr-plugin-react": "^5.5.61",
+    "ssr-types-react": "^5.5.61",
     "typescript": "^4.3.4",
-    "webpack": "^4.0.0"
+    "webpack": "^4.42.1"
   },
   "husky": {
     "hooks": {
