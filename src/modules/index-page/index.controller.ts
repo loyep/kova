@@ -10,7 +10,7 @@ export class AppController {
   @Inject(ApiService) private readonly apiService: ApiService
 
   @Get('/')
-  @SsrRender({ stream: false, cache: true })
+  @SsrRender({ stream: false, cache: false })
   async handlerIndex(@Req() req: Request): Promise<any> {
     if (req.query.fc) {
       throw new RedirectException('/fff', 302)

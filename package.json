@@ -1,13 +1,17 @@
 {
   "name": "kova",
   "version": "1.0.0",
-  "private": true,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/loyep/kova.git"
+  "scripts": {
+    "prod": "ssr build && pm2 start pm2.config.js",
+    "stop": "pm2 stop pm2.config.js",
+    "deploy": "ssr build && ssr deploy",
+    "dev": "ssr start",
+    "start": "ssr start",
+    "start:vite": "ssr start --vite",
+    "build": "ssr build",
+    "lint": "eslint . --ext .js,.tsx,.ts --cache",
+    "lint:fix": "eslint . --ext .js,.tsx,.ts --cache --fix"
   },
-  "author": "Zack <mwl@live.com>",
-  "license": "MIT",
   "dependencies": {
     "@nestjs/common": "^7.5.1",
     "@nestjs/config": "^0.6.3",
@@ -16,6 +20,8 @@
     "@nestjs/typeorm": "^7.1.5",
     "@typegoose/typegoose": "^7.6.1",
     "antd": "^4.16.3",
+    "class-transformer": "^0.4.0",
+    "dayjs": "^1.10.5",
     "ioredis": "^4.27.6",
     "lodash": "^4.17.21",
     "mongoose": "^5.12.14",
@@ -30,7 +36,6 @@
     "rxjs": "^7.1.0",
     "serialize-javascript": "^6.0.0",
     "ssr-core-react": "^5.5.61",
-    "ssr-types": "^5.5.61",
     "swiper": "^6.0.0",
     "typeorm": "^0.2.34",
     "winston": "^3.3.3",
@@ -53,6 +58,12 @@
     "typescript": "^4.3.4",
     "webpack": "^4.42.1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/loyep/kova.git"
+  },
+  "author": "Zack <mwl@live.com>",
+  "license": "MIT",
   "husky": {
     "hooks": {
       "commit-msg": "commitlint --edit"
@@ -60,15 +71,5 @@
   },
   "lint-staged": {
     "*.{js,ts,vue,css}": "prettier --write"
-  },
-  "scripts": {
-    "prod": "ssr build && pm2 start pm2.config.js",
-    "stop": "pm2 stop pm2.config.js",
-    "deploy": "ssr build && ssr deploy",
-    "start": "ssr start",
-    "start:vite": "ssr start --vite",
-    "build": "ssr build",
-    "lint": "eslint . --ext .js,.tsx,.ts --cache",
-    "lint:fix": "eslint . --ext .js,.tsx,.ts --cache --fix"
   }
 }

@@ -1,5 +1,5 @@
 import { CallHandler, ExecutionContext, Inject, Injectable, InternalServerErrorException, NestInterceptor, Optional } from "@nestjs/common";
-import { HttpAdapterHost, Reflector } from "@nestjs/core";
+import { Reflector } from "@nestjs/core";
 import { Request, Response } from 'express-serve-static-core';
 import { Observable, of, firstValueFrom } from "rxjs";
 import { RedirectException } from "../exceptions/redirect.exception";
@@ -9,7 +9,6 @@ import { SSR_RENDER_METADATA } from "./ssr-render.constants";
 import { CacheService } from "../cache";
 
 const REFLECTOR = 'Reflector';
-const HTTP_ADAPTER_HOST = 'HttpAdapterHost';
 
 export interface SsrRenderOptions {
   stream?: boolean;
@@ -24,10 +23,6 @@ export class SsrRenderInterceptor implements NestInterceptor {
   @Optional()
   @Inject(CacheService) private cache: CacheService
 
-  @Optional()
-  @Inject(HTTP_ADAPTER_HOST)
-  protected readonly httpAdapterHost: HttpAdapterHost;
-
   protected renderContext: any
 
   async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<any>> {
@@ -41,32 +36,32 @@ export class SsrRenderInterceptor implements NestInterceptor {
     if (cache) {
       result = await this.cache.get(key)
     }
-    
-    if (!result) {
+
+    if (result) {
+      return of(result)
+    }
+    try {
       result = await firstValueFrom(next.handle())
-      if (result instanceof RedirectException) {
-        res.redirect(result.getRedirectUrl())
+
+      this.renderContext = {
+        request: req,
+        response: res,
+        ...result
+      }
+      const content = await this.getRenderContent(options)
+      if (content instanceof Stream) {
+        return of(await this.sendStream(res, content))
+      }
+      this.cache.set(key, content, 300)
+      return of(content)
+    } catch (error) {
+      if (error instanceof RedirectException) {
+        res.redirect(error.getRedirectUrl())
         return
       } else {
-        this.renderContext = {
-          request: req,
-          response: res,
-          ...result
-        }
-        try {
-          const content = await this.getRenderContent(options)
-          if (content instanceof Stream) {
-            return of(await this.sendStream(res, content))
-          } else {
-            this.cache.set(key, content, 3600)
-          }
-          return of(content)
-        } catch (error) {
-          throw new InternalServerErrorException(error.message);
-        }
+        throw new InternalServerErrorException(error.message);
       }
     }
-    return of(result)
   }
 
   getRenderContent(options: any) {
