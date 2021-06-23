@@ -13,6 +13,7 @@ const HTTP_ADAPTER_HOST = 'HttpAdapterHost';
 
 export interface SsrRenderOptions {
   stream?: boolean;
+  cache?: boolean;
 }
 
 @Injectable()
