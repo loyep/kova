@@ -20,12 +20,8 @@ async use(request: Request, response: Response, next) {
     // }
     // res.header("Access-Control-Allow-Methods", "OPTIONS,HEAD,PUT,POST,GET,DELETE")
     const now = Date.now();
-    const start = process.hrtime()
     const uuid = uuidv4();
-    console.log(process.hrtime(start));
-    const start2 = process.hrtime()
     const uid = uniqueId()
-    console.log('start2', uid, process.hrtime(start2));
     if (!req.header(REQUEST_ID)) {
         req.headers[REQUEST_ID] = `${uid}${uuid}`;
     }

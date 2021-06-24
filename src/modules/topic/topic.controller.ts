@@ -2,7 +2,6 @@ import { Body, Controller, Get, Param, Put, Query } from "@nestjs/common"
 import { TopicNotFound, TopicService } from "./topic.service"
 import { AdminAPIPrefix, APIPrefix } from "@/constants/constants"
 import { ApiOperation } from "@nestjs/swagger"
-import { LoggerService } from "@/core/logger"
 import { ParsePagePipe, ParsePageSizePipe } from "@/core/pipes/parse-page.pipe"
 import { MyHttpException } from "@/core/exceptions/my-http.exception"
 import { ErrorCode } from "@/constants/error"
@@ -12,7 +11,6 @@ import { Topic } from "@/entity/topic.entity"
 export class TopicController {
   constructor(
     private readonly topicService: TopicService,
-    private readonly logger: LoggerService,
   ) {}
 
   @ApiOperation({ summary: "分类列表", tags: ["topic"] })
@@ -36,7 +34,6 @@ export class TopicController {
   async findOne(@Param("id") id: number) {
     try {
       const topic = await this.topicService.findById(id)
-      this.logger.debug(topic)
       return topic
     } catch (error) {
       throw new MyHttpException({

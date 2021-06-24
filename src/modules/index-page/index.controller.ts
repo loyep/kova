@@ -15,11 +15,6 @@ export class AppController {
     if (req.query.fc) {
       throw new RedirectException('/fff', 302)
     }
-    // if (req.res) {
-    //   req.res.redirect(302, '/fff')
-    //   return 
-    // }
     return Promise.resolve({ apiService: this.apiService })
-    // return await this.render.render({ req, res }, this.apiService)
   }
 }

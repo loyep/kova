@@ -1,5 +1,4 @@
 import { CacheService } from '@/core/cache'
-import { LoggerService } from '@/core/logger'
 import { User, UserStatus } from "@/entity/user.entity"
 import { Inject, Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
@@ -10,16 +9,10 @@ import { paginate } from "@/core/common/paginate"
 import { CreateUserDto } from "./dto/create-user.dto"
 import { UpdateUserDto } from "./dto/update-user.dto"
 import { FindConditions } from "typeorm/find-options/FindConditions"
-// import { FindOptionsOrder, FindOptionsSelect } from "typeorm/find-options/FindOptions"
-
-// type OrderType = FindOptionsOrder<User>
-
-// type WhereType = FindOptionsWhere<User>
 
 @Injectable()
 export class UserService {
   @Inject(CacheService) private readonly cache: CacheService
-  @Inject(LoggerService) private readonly logger: LoggerService
 
   constructor(
     @InjectRepository(User)
@@ -172,7 +165,6 @@ export class UserService {
       })
       .getCount()
 
-    this.logger.log(existedLogin)
     if (existedLogin > 0) {
       throw new Error("别名已被占用")
     }

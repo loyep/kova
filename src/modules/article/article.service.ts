@@ -8,7 +8,7 @@ import { CreateArticleDto } from "./dto/create-article.dto"
 import { UpdateArticleDto } from "./dto/update-article.dto"
 import { MyHttpException } from "@/core/exceptions/my-http.exception"
 import { ErrorCode } from "@/constants/error"
-import { getColumnNames, selectColumns } from "@/core/database/repository"
+import { getColumnNames } from "@/core/database/repository"
 import { Category } from "@/entity/category.entity"
 import { IPaginationOptions } from "@/core/common/paginate/paginate.interface"
 import { User } from "@/entity/user.entity"
@@ -336,13 +336,6 @@ export class ArticleService {
 
   remove(id: number) {
     return `This action removes a #${id} article`
-  }
-
-  async test2() {
-    const select = selectColumns(this.repo, { content: true })
-    console.log(select)
-    return select
-    // return await this.setting.all()
   }
 
   async existSlug(id: number, slug: string) {

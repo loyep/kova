@@ -34,7 +34,6 @@ export class ArticleApiController {
   @Get(`${APIPrefix}banners`)
   async banner() {
     const res = await this.service.bannerList()
-    console.log("banners")
     this.logger.info(res)
     return res
   }

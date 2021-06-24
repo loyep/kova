@@ -68,7 +68,6 @@ async function paginateQueryBuilder<T>(
 ): Promise<Pagination<T>> {
   const [page, limit, route] = resolveOptions(options)
 
-  const st = new Date();
   const [items, total] = await Promise.all([
     queryBuilder
       .take(limit)

@@ -35,7 +35,6 @@ export class CommentService {
     { s }: { s?: string } = {},
     select?: (keyof Comment)[],
   ) {
-    console.log(s)
     return await paginate<Comment>(
       this.repo,
       { page, pageSize },

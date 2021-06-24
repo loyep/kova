@@ -20,9 +20,9 @@ export class HttpExceptionFilter implements ExceptionFilter {
   @Inject(LoggerService) private readonly logger: LoggerService
 
   catch(exception: HttpException, host: ArgumentsHost) {
-    this.logger.error(exception)
     const res = host.switchToHttp().getResponse()
     if (exception instanceof MyHttpException) {
+      this.logger.debug(exception)
       return res.status(HttpStatus.OK).send({
         code: exception.code,
         message: exception.message,
