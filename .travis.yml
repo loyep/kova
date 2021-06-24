@@ -1,0 +1,21 @@
+language: node_js
+
+branches:
+  only:
+  - master
+  - dev
+
+node_js:
+  - 14
+
+before_script:
+  - yarn
+  - yarn install
+
+script:
+  - yarn build
+
+cache:
+  yarn: true
+  directories:
+    - $HOME/yarn_cache
