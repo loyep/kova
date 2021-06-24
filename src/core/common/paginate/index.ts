@@ -77,12 +77,6 @@ async function paginateQueryBuilder<T>(
     queryBuilder
       .getCount()
   ])
-  console.log('time:', new Date().getTime() - st.getTime())
-  // const [items, total] = await queryBuilder
-  //   .take(limit)
-  //   .skip((page - 1) * limit)
-  //   .distinct(false)
-  //   .getManyAndCount()
 
   return createPaginationObject<T>(items, total, page, limit, route)
 }

@@ -250,7 +250,6 @@ export class ArticleService {
         select: getColumnNames(this.repo),
         relations: ["category", "user"],
       })
-      console.log(a)
       return a
     } catch (error) {
       console.log(error)

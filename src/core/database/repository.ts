@@ -2,13 +2,11 @@ import { ObjectLiteral, Repository } from "typeorm"
 
 export function getColumnNames<T extends ObjectLiteral>(repo: Repository<T>) {
   const columnNames = repo.metadata.columns.map((column) => column.propertyName) as [keyof T]
-  console.log("columnNames", columnNames)
   return columnNames
 }
 
 export function getAllColumnNames<T extends ObjectLiteral>(repo: Repository<T>) {
   const columnNames = repo.metadata.columns.map((column) => column.propertyName) as [keyof T]
-  console.log("columnNames", columnNames)
   return columnNames
 }
 
@@ -21,7 +19,6 @@ export function selectColumns<T extends ObjectLiteral>(
     getSelectColumns(repo),
     select,
   )
-  console.log(selectColumns)
   const selectFields: (keyof T)[] = []
   for (const column in selectColumns) {
     if (selectColumns.hasOwnProperty(column) && selectColumns[column]) {
@@ -39,6 +36,5 @@ export function getSelectColumns<T extends ObjectLiteral>(repo: Repository<T>) {
     },
     {},
   )
-  console.log(selectColumns)
   return selectColumns
 }

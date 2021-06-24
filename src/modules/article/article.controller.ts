@@ -9,7 +9,6 @@ export class ArticleController {
   @Get('/')
   @SsrRender()
   test() {
-    console.log('fff')
     // console.log('this.cache22', this.cache2)
     // console.log('this.cache', this.cache)
     return { service: this.service }

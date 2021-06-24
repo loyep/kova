@@ -27,7 +27,6 @@ export class TranslateService {
     const secret = ""
     const sign = md5(`${appid}${q}${salt}${secret}`)
     const url = this.baseUrl
-    console.log(sign)
     const { data } = await firstValueFrom(this.http
       .get(url, { params: { appid, salt, q, from: "auto", to: "en", sign } }))
     const {

@@ -43,7 +43,6 @@ export class SsrRenderInterceptor implements NestInterceptor {
     }
     try {
       result = await firstValueFrom(next.handle())
-      console.log(result)
       this.renderContext = {
         request: req,
         response: {},
