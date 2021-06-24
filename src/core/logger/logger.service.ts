@@ -28,9 +28,8 @@ export class LoggerService extends NestLogger {
         if (info.stack) {
           info.message = info.stack
         }
-        return `${info.timestamp} [${info.pid}] ${info.level}: [${info.context || "Application"}] ${
-          info.message
-        }`
+        return `${info.timestamp} [${info.pid}] ${info.level}: [${info.context || "Application"}] ${info.message
+          }`
       }),
     ),
     defaultMeta: { pid: process.pid },

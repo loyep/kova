@@ -11,15 +11,17 @@ export class AppController {
 
   @Get('/')
   @SsrRender({ stream: false, cache: false })
-  async handlerIndex(@Req() req: Request): Promise<any> {
+  handlerIndex(@Req() req: Request): Promise<any> {
+    console.log(req.params)
     if (req.query.fc) {
       throw new RedirectException('/fff', 302)
     }
+    console.log('ffff')
     // if (req.res) {
     //   req.res.redirect(302, '/fff')
     //   return 
     // }
-    return { apiService: this.apiService }
+    return Promise.resolve({ apiService: this.apiService })
     // return await this.render.render({ req, res }, this.apiService)
   }
 }
