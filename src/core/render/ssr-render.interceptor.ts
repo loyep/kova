@@ -32,7 +32,7 @@ export class SsrRenderInterceptor implements NestInterceptor {
     const ssrRenderMeta = this.reflector.get(SSR_RENDER_METADATA, context.getHandler());
     const { cache = false, ...options } = { cache: false, stream: true, ...ssrRenderMeta }
     let result: any
-    const key = req.url
+    const key = `${req.protocol}://${req.get('host')}${req.originalUrl}`
     if (cache) {
       result = await this.cache.get(key)
     }
