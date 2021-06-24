@@ -74,10 +74,10 @@ export class ArticleService {
   }
 
   async getIndexData() {
-    const [article, banners] = await Promise.all([
+    const [article, banners = []] = await Promise.all([
       this.paginate({ page: 1, pageSize: 20 }, {
       }),
-      this.bannerList()
+      // this.bannerList()
     ])
     return {
       data: article,

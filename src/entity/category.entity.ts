@@ -2,13 +2,13 @@ import {
   Column,
   Entity,
   PrimaryGeneratedColumn,
-  OneToMany,
+  // OneToMany,
   UpdateDateColumn,
   CreateDateColumn,
   Index,
   DeleteDateColumn,
 } from "typeorm"
-import { Article } from "@/entity/article.entity"
+// import { Article } from "@/entity/article.entity"
 import { BaseEntity, MetaTransformer } from "@/entity/_base.entity"
 
 export interface CategoryMeta {
@@ -61,8 +61,8 @@ export class Category extends BaseEntity {
   @Column("int", { name: "articles_count", unsigned: true, default: 0 })
   articles_count: number
 
-  @OneToMany(() => Article, (article: Article) => article.category)
-  articles: Promise<Article[]>
+  // @OneToMany(() => Article, (article: Article) => article.category)
+  // articles: Promise<Article[]>
 
   @CreateDateColumn({ type: "timestamp", select: false })
   created_at: Date

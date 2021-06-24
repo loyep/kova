@@ -7,6 +7,7 @@ import { ArticleController } from "./article.controller"
 
 // Services
 import { ArticleService } from "./article.service"
+import { ArticleApiService } from "./article-api.service"
 
 import { AipModule } from "@/modules/aip"
 
@@ -18,7 +19,7 @@ import { Article } from "@/entity/article.entity"
         TypeOrmModule.forFeature([Article]),
     ],
     controllers: [ArticleController, ArticleApiController],
-    providers: [ArticleService],
+    providers: [ArticleService, ArticleApiService],
     exports: [ArticleService],
 })
 export class ArticleModule { }

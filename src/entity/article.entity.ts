@@ -13,7 +13,7 @@ import {
   DeleteDateColumn,
   OneToOne,
 } from "typeorm"
-import { Category } from "./category.entity"
+// import { Category } from "./category.entity"
 import { User } from "./user.entity"
 import { Tag } from "./tag.entity"
 import { Comment } from "./comment.entity"
@@ -158,9 +158,9 @@ export class Article extends BaseEntity {
   /**
    * 分类
    */
-  @ManyToOne(() => Category, (category: Category) => category.articles)
-  @JoinColumn({ name: "category_id" })
-  category: Category
+  // @ManyToOne(() => Category, (category: Category) => category.articles)
+  // @JoinColumn({ name: "category_id" })
+  // category: Promise<Category>
 
   /**
    * 作者id
@@ -173,7 +173,7 @@ export class Article extends BaseEntity {
    */
   @ManyToOne(() => User, (user: User) => user.articles)
   @JoinColumn({ name: "user_id" })
-  user: User
+  user: Promise<User>
 
   /**
    * 文章标签
