@@ -1,11 +1,14 @@
-import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common'
-import { CacheModule, ConfigModule, LoggerModule } from './core'
-import { LoggerMiddleware } from './middleware/logger.middleware'
-import { DetailModule } from './modules/detail-page/detail.module'
-import { indexModule } from './modules/index-page/index.module'
+import { MiddlewareConsumer, Module, RequestMethod } from "@nestjs/common"
+import { CacheModule, ConfigModule, LoggerModule } from "./core"
+import { LoggerMiddleware } from "@/middleware/logger.middleware"
+import { UserModule } from "./modules/user"
+import { ArticleModule } from "./modules/article/article.module"
+import { CategoryModule } from "./modules/category"
+import { TagModule } from "./modules/tag"
+import { TopicModule } from "./modules/topic"
 
 @Module({
-  imports: [ConfigModule, CacheModule, LoggerModule, DetailModule, indexModule,]
+  imports: [ConfigModule, CacheModule, LoggerModule, UserModule, CategoryModule, TagModule, TopicModule, ArticleModule,]
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
