@@ -6,9 +6,10 @@ import { ArticleModule } from "./modules/article/article.module"
 import { CategoryModule } from "./modules/category"
 import { TagModule } from "./modules/tag"
 import { TopicModule } from "./modules/topic"
+import { DatabaseModule } from "./core/database"
 
 @Module({
-  imports: [ConfigModule, CacheModule, LoggerModule, UserModule, CategoryModule, TagModule, TopicModule, ArticleModule,]
+  imports: [ConfigModule, CacheModule, LoggerModule, DatabaseModule.forRoot(), UserModule, CategoryModule, TagModule, TopicModule, ArticleModule]
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {

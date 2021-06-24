@@ -5,7 +5,6 @@ import { ApiOperation } from "@nestjs/swagger"
 import { ParsePagePipe, ParsePageSizePipe } from "@/core/pipes/parse-page.pipe"
 import { MyHttpException } from "@/core/exceptions/my-http.exception"
 import { ErrorCode } from "@/constants/error"
-import { Tag } from "@/entity/tag.entity"
 import { CreateTagDto } from "@/modules/tag/dto/create-tag.dto"
 import { UpdateTagDto } from "@/modules/tag/dto/update-tag.dto"
 

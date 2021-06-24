@@ -10,7 +10,7 @@ export default (props: SProps) => {
   const { state, dispatch } = useContext<IContext<IData>>(window.STORE_CONTEXT)
   return (
     <div>
-      <Button>test</Button>
+      <Button>test2</Button>
       {/* <Search></Search>
       {
         state?.indexData?.data?.[0]?.components ? <div>

@@ -3,7 +3,6 @@ import {
   Controller,
   Delete,
   Get,
-  HttpException,
   Param,
   ParseIntPipe,
   Post,
@@ -11,24 +10,22 @@ import {
   Query,
   Req,
 } from "@nestjs/common"
-import { CommentNotFound, CommentService } from "./comment.service"
+import { CommentService } from "./comment.service"
 import { AdminAPIPrefix, APIPrefix } from "@/constants/constants"
+import { Request } from 'express'
 import { ApiOperation } from "@nestjs/swagger"
-import { CacheService, LoggerService } from "@kova/core"
 import { ParsePagePipe, ParsePageSizePipe } from "@/core/pipes/parse-page.pipe"
 import { MyHttpException } from "@/core/exceptions/my-http.exception"
 import { ErrorCode } from "@/constants/error"
 import { CreateCommentDto } from "@/modules/comment/dto/create-comment.dto"
 import { UpdateCommentDto } from "@/modules/comment/dto/update-comment.dto"
-import { FastifyRequest } from "fastify"
 import { SolutionService } from "@/modules/aip/solution.service"
-import { SkipThrottle, Throttle } from "@nestjs/throttler";
+import { Throttle } from "@nestjs/throttler";
 
 @Controller()
 export class CommentController {
   constructor(
     private readonly commentService: CommentService,
-    private readonly logger: LoggerService,
     private readonly solution: SolutionService,
   ) {}
 
@@ -56,7 +53,7 @@ export class CommentController {
   // @ApiOperation({ summary: "根据slug查询分类", tags: ["comment"] })
   @Post(`${APIPrefix}comments`)
   @Throttle(2, 60)
-  async create(@Req() req, @Body() data: CreateCommentDto) {
+  async create(@Req() req: Request, @Body() data: CreateCommentDto) {
     const conclusion = await this.solution.textCensorUserDefined(data.content)
     if (conclusion) {
       throw new MyHttpException({
@@ -69,9 +66,9 @@ export class CommentController {
     return comment
   }
 
-  getClientIp(req: FastifyRequest): string {
+  getClientIp(req: Request): string {
     return (req.headers["x-forwarded-for"] ||
-      req.connection.remoteAddress ||
+      req.socket.remoteAddress ||
       req.socket.remoteAddress) as string
   }
 

@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity } from "typeorm"
-import { BaseEntity, LocalDateTransformer } from './_base.entity'
+import { BaseEntity,  } from './_base.entity'
 
 @Entity({ name: "collections" })
 export class Collection extends BaseEntity {

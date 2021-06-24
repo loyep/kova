@@ -1,10 +1,10 @@
-import { Injectable } from "@nestjs/common"
+import { Inject, Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
 import { Repository } from "typeorm"
 import { Collection } from "@/entity/collection.entity"
-import { BaseService, CacheService, LoggerService } from "@kova/core"
+import { LoggerService } from "@/core/logger"
 import { Article } from "@/entity/article.entity"
-import { paginate } from "@/common"
+import { paginate } from "@/core/common/paginate"
 
 export enum CollectionType {
   Article = "article",
@@ -12,14 +12,15 @@ export enum CollectionType {
 }
 
 @Injectable()
-export class CollectionService extends BaseService {
+export class CollectionService {
+  @Inject(LoggerService) private readonly logger: LoggerService
+
   constructor(
     @InjectRepository(Collection)
     private readonly repo: Repository<Collection>,
     @InjectRepository(Article)
     private readonly articleRepo: Repository<Article>,
   ) {
-    super()
   }
 
   async isCollectiond(

@@ -9,15 +9,15 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
+  // OneToMany,
   DeleteDateColumn,
   OneToOne,
 } from "typeorm"
 import { Category } from "./category.entity"
-import { User } from "@/user"
-import { Tag } from "@/entity/tag.entity"
-import { Comment } from "@/entity/comment.entity"
-import { Topic } from "@/entity/topic.entity"
+import { User } from "./user.entity"
+import { Tag } from "./tag.entity"
+// import { Comment } from "./comment.entity"
+import { Topic } from "./topic.entity"
 import { BaseEntity, LocalDateTransformer, MetaTransformer } from "./_base.entity"
 import { Transform } from "class-transformer"
 import { Content } from "./content.entity"
@@ -200,8 +200,8 @@ export class Article extends BaseEntity {
   /**
    * 文章评论
    */
-  @OneToMany(() => Comment, (comment: Comment) => comment.article)
-  comments: Comment[]
+  // @OneToMany(() => Comment, (comment: Comment) => comment.article)
+  // comments: Comment[]
 
   @CreateDateColumn({
     select: false,

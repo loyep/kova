@@ -2,7 +2,7 @@ import { InjectRepository } from "@nestjs/typeorm"
 import { LessThan, MoreThan, Not, Repository, SelectQueryBuilder } from "typeorm"
 import { Article, ArticleStatusType } from "@/entity/article.entity"
 import { defaultMeta } from "@/entity/article.entity"
-import { Inject, Injectable } from "@nestjs/common"
+import { Injectable } from "@nestjs/common"
 import { IPaginatorOptions, paginate, resolveOptions, createPaginationObject } from "@/core/common/paginate"
 import { CreateArticleDto } from "./dto/create-article.dto"
 import { UpdateArticleDto } from "./dto/update-article.dto"
@@ -14,8 +14,6 @@ import { IPaginationOptions } from "@/core/common/paginate/paginate.interface"
 import { User } from "@/entity/user.entity"
 import { isEmpty } from "lodash"
 import { Content } from "@/entity/content.entity"
-import { CacheService } from "@/core/cache"
-import { LoggerService } from "@/core/logger"
 
 const mergeItems = <T = any>(items: T[], joinItems: any[], keyPath: string, propertyName: string, joinKeyPath: string = 'id') => {
   if (isEmpty(items) || isEmpty(joinItems)) return
@@ -43,8 +41,6 @@ export const ArticleNotFound = new MyHttpException({
 
 @Injectable()
 export class ArticleService {
-  @Inject(CacheService) private readonly cache: CacheService
-  @Inject(LoggerService) private readonly logger: LoggerService
 
   @InjectRepository(Article) protected readonly repo: Repository<Article>
 
@@ -75,6 +71,18 @@ export class ArticleService {
       .leftJoinAndSelect("a.user", "user")
       .leftJoinAndSelect("a.category", "category")
     return await paginate<Article>(builder, { page, pageSize })
+  }
+
+  async getIndexData() {
+    const [article, banners] = await Promise.all([
+      this.paginate({ page: 1, pageSize: 20 }, {
+      }),
+      this.bannerList()
+    ])
+    return {
+      data: article,
+      banners
+    }
   }
 
   listByUserId(userId: number, { page }: { page: number }) {

@@ -30,8 +30,7 @@ export class SsrRenderInterceptor implements NestInterceptor {
     const req: Request = http.getRequest()
     const res: Response = http.getResponse()
     const ssrRenderMeta = this.reflector.get(SSR_RENDER_METADATA, context.getHandler());
-    const { cache = false, ...options } = { cache: false, stream: true, ...ssrRenderMeta }
-    console.log('req.params', req.params)
+    const { cache = false, ...options } = { cache: false, stream: false, ...ssrRenderMeta }
     let result: any
     const key = `${req.protocol}://${req.get('host')}${req.originalUrl}`
     const noCache = req.get('cache-control') === 'no-cache'
@@ -44,8 +43,7 @@ export class SsrRenderInterceptor implements NestInterceptor {
     }
     try {
       result = await firstValueFrom(next.handle())
-      console.log('result')
-      console.log(res.type)
+      console.log(result)
       this.renderContext = {
         request: req,
         response: {},
@@ -61,8 +59,8 @@ export class SsrRenderInterceptor implements NestInterceptor {
       }
       if (cache) this.cache.set(key, content, 300)
       // return of(content)
-      res.send(content)
-      return
+      // res.send(content)
+      return of(content)
     } catch (error) {
       if (error instanceof RedirectException) {
         res.redirect(error.getRedirectUrl())

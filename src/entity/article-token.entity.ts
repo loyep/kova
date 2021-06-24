@@ -5,7 +5,7 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
 } from "typeorm"
-import { BaseEntity, LocalDateTransformer, MetaTransformer } from "./_base.entity"
+import { BaseEntity, LocalDateTransformer,  } from "./_base.entity"
 
 export interface PostMeta {
   cover: string

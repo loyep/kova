@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common"
 import { TypeOrmModule } from "@nestjs/typeorm"
 
 // Controllers
+import { ArticleApiController } from "./article-api.controller"
 import { ArticleController } from "./article.controller"
 
 // Services
@@ -11,14 +12,12 @@ import { AipModule } from "@/modules/aip"
 
 import { Article } from "@/entity/article.entity"
 
-import { Topic } from "@/entity/topic.entity"
-
 @Module({
     imports: [
         AipModule,
-        TypeOrmModule.forFeature([Article, Topic]),
+        TypeOrmModule.forFeature([Article]),
     ],
-    controllers: [ArticleController,],
+    controllers: [ArticleController, ArticleApiController],
     providers: [ArticleService],
     exports: [ArticleService],
 })

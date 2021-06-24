@@ -1,5 +1,4 @@
 import { CacheService } from "@/core/cache"
-import { LoggerService } from "@/core/logger"
 import { HttpService, Inject, Injectable } from "@nestjs/common"
 import { firstValueFrom } from "rxjs"
 
@@ -8,7 +7,6 @@ export class SolutionService {
   private readonly baseUrl = "https://aip.baidubce.com"
 
   @Inject(CacheService) private readonly cache: CacheService
-  @Inject(LoggerService) private readonly logger: LoggerService
 
   constructor(
     private readonly http: HttpService,

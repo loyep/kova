@@ -7,10 +7,9 @@ import {
   HttpStatus,
   Inject,
   Injectable,
-  Logger,
   UnauthorizedException,
 } from "@nestjs/common"
-import { MyHttpException } from "../exceptions/my-http.exception"
+import { MyHttpException } from "@/core/exceptions/my-http.exception"
 import { isString } from "lodash"
 import { ThrottlerException } from "@nestjs/throttler"
 import { LoggerService } from "@/core/logger"

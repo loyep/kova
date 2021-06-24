@@ -29,11 +29,9 @@ async use(request: Request, response: Response, next) {
     if (!req.header(REQUEST_ID)) {
         req.headers[REQUEST_ID] = `${uid}${uuid}`;
     }
-    console.log('req.paramsreq.paramsreq.params,', req.params)
     this.logger.log(`Before: ${method} ${url} with :
     params: ${JSON.stringify(params)}, with query: ${JSON.stringify(query)}`)
     await next();
-    console.log('req.paramsreq.paramsreq.params,', req.params)
     this.logger.log(`After: ${method} ${url} took ${Date.now() - now}ms`)
   }
 }

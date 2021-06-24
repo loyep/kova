@@ -14,13 +14,11 @@ import { MustIntPipe } from "@/core/pipes/must-int.pipe"
 import { CurUser } from "@/core/decorators/user.decorator"
 import { CollectionService } from "./collection.service"
 import { JwtAuthGuard } from "@/core/guards/auth.guard"
-import { CacheService, LoggerService } from "@kova/core"
 
 @Controller()
 export class CollectionController {
   constructor(
     private readonly collectionService: CollectionService,
-    private readonly logger: LoggerService,
   ) {}
 
   @ApiOperation({ summary: "文章点赞", tags: ["article"] })

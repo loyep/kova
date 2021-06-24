@@ -14,7 +14,7 @@ import { Logger } from "typeorm/logger/Logger"
 })
 export class DatabaseModule {
 
-  private static createAsyncTypeGoose() {
+  static createAsyncTypeGoose() {
     return TypegooseModule.forRootAsync({
       useFactory: (configService: ConfigService) => {
         const config = configService.get('mongodb')
@@ -51,8 +51,7 @@ export class DatabaseModule {
   private static createAsyncTypeOrm({ entities = [] }: Partial<DatabaseModuleOptions>) {
     return TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigService) => {
-        const { packageDir = '' } = (global as any);
-        const entityPath = packageDir ? path.join(packageDir, "entity/**/*.entity{.ts,.js}") : ''
+        const entityPath = path.join(__dirname ,"../../entity/**/*.entity{.ts,.js}")
         const mysqlConf = configService.get('mysql', {})
         const cache = configService.get('redis.default', {})
 
@@ -65,7 +64,7 @@ export class DatabaseModule {
           database: mysqlConf.database,
           username: mysqlConf.username,
           password: mysqlConf.password,
-          synchronize: false,
+          synchronize: true,
           entities: [...entities, entityPath].filter(e => e),
           autoLoadEntities: true,
           logging: "all", // query, error, schema, warn, info, log, all
@@ -98,7 +97,7 @@ export class DatabaseModule {
       module: DatabaseModule,
       imports: [
         this.createAsyncTypeOrm(options),
-        this.createAsyncTypeGoose()
+        // this.createAsyncTypeGoose()
       ]
     };
   }

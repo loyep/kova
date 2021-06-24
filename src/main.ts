@@ -15,9 +15,7 @@ async function bootstrap(): Promise<void> {
   await app.listen(serverPort)
 }
 
-bootstrap().then(app => {
-  console.log('Nest application successfully started')
-}).catch(err => {
+bootstrap().catch(err => {
   console.log(err)
   process.exit(1)
 })

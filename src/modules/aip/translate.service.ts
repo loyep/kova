@@ -1,6 +1,4 @@
-import { CacheService } from "@/core/cache"
-import { LoggerService } from "@/core/logger"
-import { HttpService, Inject, Injectable } from "@nestjs/common"
+import { HttpService, Injectable } from "@nestjs/common"
 import { createHash } from "crypto"
 import { firstValueFrom } from "rxjs"
 
@@ -9,13 +7,10 @@ const encrypt = (algorithm: string, content: string) => {
   hash.update(content)
   return hash.digest("hex")
 }
-const sha1 = (content: string) => encrypt("sha1", content)
 const md5 = (content: string) => encrypt("md5", content)
 
 @Injectable()
 export class TranslateService {
-  @Inject(CacheService) private readonly cache: CacheService
-  @Inject(LoggerService) private readonly logger: LoggerService
   private readonly baseUrl = "https://fanyi-api.baidu.com/api/trans/vip/translate"
 
   constructor(

@@ -5,36 +5,36 @@ name: Kova
 timezone: UTC
 
 # 语言
-locale: 'en'
+locale: "en"
 
 # Mysql配置
-mysql: 
+mysql:
   type: mysql
   host: 127.0.0.1
   port: 3306
-  database: 
-  username: 
-  password: 
+  database:
+  username:
+  password:
 
 # MongoDB配置
 mongodb:
   host: 127.0.0.1
   port: 27017
-  database: 
-  username: 
-  password: 
+  database:
+  username:
+  password:
 
 # redis配置
 redis:
   # 默认数据库缓存
-  default: 
+  default:
     host: 127.0.0.1
     port: 6379
-    password: 
+    password:
     database: 0
   # 业务缓存
-  cache: 
+  cache:
     host: 127.0.0.1
     port: 6379
-    password: 
+    password:
     database: 1

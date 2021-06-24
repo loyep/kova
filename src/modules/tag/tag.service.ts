@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm"
 import { Like, Repository } from "typeorm"
 import { Tag } from "@/entity/tag.entity"
 import { ListResult } from "@/entity/_base.entity"
-import { paginate } from "@/common"
+import { paginate } from "@/core/common/paginate"
 import { CreateTagDto } from "@/modules/tag/dto/create-tag.dto"
 import { UpdateTagDto } from "@/modules/tag/dto/update-tag.dto"
 

@@ -12,11 +12,9 @@ export class AppController {
   @Get('/')
   @SsrRender({ stream: false, cache: false })
   handlerIndex(@Req() req: Request): Promise<any> {
-    console.log(req.params)
     if (req.query.fc) {
       throw new RedirectException('/fff', 302)
     }
-    console.log('ffff')
     // if (req.res) {
     //   req.res.redirect(302, '/fff')
     //   return 
