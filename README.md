@@ -1,6 +1,7 @@
 # Kova
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Floyep%2Fkova.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Floyep%2Fkova?ref=badge_shield)
 
+[![Join the chat at https://gitter.im/loyep/kova](https://badges.gitter.im/loyep/kova.svg)](https://gitter.im/loyep/kova?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 # 官方文档
 
