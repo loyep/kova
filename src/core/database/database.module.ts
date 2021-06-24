@@ -64,7 +64,7 @@ export class DatabaseModule {
           database: mysqlConf.database,
           username: mysqlConf.username,
           password: mysqlConf.password,
-          synchronize: true,
+          synchronize: false,
           entities: [...entities, entityPath].filter(e => e),
           autoLoadEntities: true,
           logging: "all", // query, error, schema, warn, info, log, all

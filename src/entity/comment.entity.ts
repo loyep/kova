@@ -5,10 +5,10 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
   Column,
-  // ManyToOne,
-  // JoinColumn,
+  ManyToOne,
+  JoinColumn,
 } from "typeorm"
-// import { Article } from "./article.entity"
+import { Article } from "./article.entity"
 import { BaseEntity, LocalDateTransformer } from "./_base.entity"
 
 @Entity({ name: "comments" })
@@ -37,9 +37,9 @@ export class Comment extends BaseEntity {
   @Column("varchar", { nullable: true })
   ip: string
 
-  // @ManyToOne(() => Article, (article: Article) => article.comments)
-  // @JoinColumn({ name: "article_id" })
-  // article: Promise<Article>
+  @ManyToOne(() => Article, (article: Article) => article.comments)
+  @JoinColumn({ name: "article_id" })
+  article: Promise<Article>
 
   @CreateDateColumn({
     type: "timestamp",
