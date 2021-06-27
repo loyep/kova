@@ -16,19 +16,19 @@ export class ArticleApiService {
   @InjectRepository(Article) protected readonly repo: Repository<Article>
 
   async getIndexData() {
-    const [article] = await Promise.all([
-      // this.paginate({ page: 1, pageSize: 20 }, {      }),
-      this.getFirstArticle()
-      // Promise.resolve('f')
-    ])
-    console.log('article', article)
+    const article = await this.getFirstArticle()
+    // delete (article as any).__category__
+    // delete (article as any).__promise_user__
+    // delete (article as any).__promise_topics__
+    // delete (article as any).__promise_tags__
+    // console.log('article', article)
     return {
-      article: JSON.stringify(article),
+      article,
     }
   }
 
   async getFirstArticle() {
-    const article = await this.repo.findOne({ loadEagerRelations: false, relations: ['user'] , order: { id: 'DESC' } })
+    const article = await this.repo.findOne({ loadEagerRelations: false, relations: ['category'] , order: { id: 'DESC' } })
     return article
   }
 }

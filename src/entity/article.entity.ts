@@ -13,12 +13,15 @@ import {
   DeleteDateColumn,
   OneToOne,
 } from "typeorm"
-// import { Category } from "./category.entity"
+import { Category } from "./category.entity"
 import { User } from "./user.entity"
 import { Tag } from "./tag.entity"
 import { Comment } from "./comment.entity"
 import { Topic } from "./topic.entity"
-import { BaseEntity, LocalDateTransformer, MetaTransformer } from "./_base.entity"
+import {
+  BaseEntity, LocalDateTransformer,
+  MetaTransformer
+} from "./_base.entity"
 import { Transform } from "class-transformer"
 import { Content } from "./content.entity"
 
@@ -158,9 +161,9 @@ export class Article extends BaseEntity {
   /**
    * 分类
    */
-  // @ManyToOne(() => Category, (category: Category) => category.articles)
-  // @JoinColumn({ name: "category_id" })
-  // category: Promise<Category>
+  @ManyToOne(() => Category, (category: Category) => category.articles)
+  @JoinColumn({ name: "category_id" })
+  category: Promise<Category>
 
   /**
    * 作者id

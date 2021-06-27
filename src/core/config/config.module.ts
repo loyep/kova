@@ -6,19 +6,25 @@ import * as fs from 'fs'
 import { merge } from "lodash"
 
 const resolveFile = (file: string) => {
-  return resolve(process.cwd(), file)
+  const path =  resolve(process.cwd(), file)
+  console.log(path)
+  return path
 }
 
-const loadYamlFile = () => ([
-  resolveFile('kova.yml'),
-  resolveFile(`kova.${process.env.NODE_ENV}.yml`),
-]).reduce((config: any, filepath: string) => {
-  if (fs.existsSync(filepath)) {
-    const c = yaml.load(fs.readFileSync(filepath, 'utf8'))
-    merge(config, c)
-  }
+const loadYamlFile = () => {
+  const config = [
+    resolveFile('kova.default.yml'),
+    resolveFile(`kova.${process.env.NODE_ENV || 'development'}.yml`),
+  ].reduce((config: any, filepath: string) => {
+    if (fs.existsSync(filepath)) {
+      const c = yaml.load(fs.readFileSync(filepath, 'utf8'))
+      merge(config, c)
+    }
+    return config
+  }, {})
+  console.log(config)
   return config
-}, {})
+}
 
 const imports = [
   NestConfigModule.forRoot({
