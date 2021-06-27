@@ -8,7 +8,7 @@ import { merge } from "lodash"
 const resolveFile = (file: string) => resolve(process.cwd(), file)
 
 const loadYamlFile = () => {
-  const config = [
+  return [
     resolveFile('kova.default.yml'),
     resolveFile(`kova.${process.env.NODE_ENV || 'development'}.yml`),
   ].reduce((config: any, filepath: string) => {
@@ -18,8 +18,6 @@ const loadYamlFile = () => {
     }
     return config
   }, {})
-  console.log(config)
-  return config
 }
 
 const imports = [

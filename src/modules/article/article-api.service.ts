@@ -15,8 +15,9 @@ export class ArticleApiService {
 
   @InjectRepository(Article) protected readonly repo: Repository<Article>
 
-  async getIndexData() {
+  async getHomeData() {
     const article = await this.getFirstArticle()
+
     return {
       article,
     }

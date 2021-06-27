@@ -163,7 +163,7 @@ export class Article extends BaseEntity {
    */
   @ManyToOne(() => Category, (category: Category) => category.articles)
   @JoinColumn({ name: "category_id" })
-  category: Promise<Category>
+  category: Category
 
   /**
    * 作者id
@@ -176,7 +176,7 @@ export class Article extends BaseEntity {
    */
   @ManyToOne(() => User, (user: User) => user.articles)
   @JoinColumn({ name: "user_id" })
-  user: Promise<User>
+  user: User
 
   /**
    * 文章标签

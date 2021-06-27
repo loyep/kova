@@ -18,7 +18,7 @@ export class UserService {
     @InjectRepository(User)
     private readonly repo: Repository<User>,
   ) {
-    console.log(this.cache)
+    console.log('cache', this.cache)
   }
 
   async list({

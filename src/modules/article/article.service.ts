@@ -50,6 +50,7 @@ export class ArticleService {
       order: {
         created_at: "DESC",
       },
+
     } as any)
   }
 
@@ -73,11 +74,11 @@ export class ArticleService {
     return await paginate<Article>(builder, { page, pageSize })
   }
 
-  async getIndexData() {
+  async getHomeData() {
     const [article, banners = []] = await Promise.all([
       this.paginate({ page: 1, pageSize: 20 }, {
       }),
-      // this.bannerList()
+      this.bannerList(),
     ])
     return {
       data: article,

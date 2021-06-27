@@ -103,7 +103,6 @@ export class TagService {
   }
 
   create(createTagDto: CreateTagDto) {
-    console.log(createTagDto)
     return "This action adds a new tag"
   }
 

@@ -34,6 +34,7 @@ export class SsrRenderInterceptor implements NestInterceptor {
     let result: any
     const key = `${req.protocol}://${req.get('host')}${req.originalUrl}`
     const noCache = req.get('cache-control') === 'no-cache'
+    console.log('cache', cache)
     if (cache && !noCache) {
       result = await this.cache.get(key)
     }
@@ -46,7 +47,6 @@ export class SsrRenderInterceptor implements NestInterceptor {
       this.renderContext = {
         request: req,
         response: {},
-        // response: pickBy(res, ['type']),
         ...result
       }
       res.contentType('text/html')

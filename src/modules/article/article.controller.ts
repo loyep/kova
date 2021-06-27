@@ -1,15 +1,16 @@
-// import { SsrRender } from '@/core/render'
-import { Controller, Get, } from '@nestjs/common'
-import { ArticleApiService } from './article-api.service'
+import { SsrRender } from '@/core/render'
+import { Controller, Get } from '@nestjs/common'
+import { ArticleService } from './article.service'
 
 @Controller()
 export class ArticleController {
-  constructor(private readonly service: ArticleApiService) { }
+  constructor(private readonly service: ArticleService) { }
 
   @Get('/')
-  // @SsrRender()
-  async test() {
-    const data = await this.service.getIndexData()
-    return data
+  @SsrRender()
+  async home() {
+    return {
+      service: this.service
+    }
   }
 }
