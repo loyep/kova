@@ -17,11 +17,6 @@ export class ArticleApiService {
 
   async getIndexData() {
     const article = await this.getFirstArticle()
-    // delete (article as any).__category__
-    // delete (article as any).__promise_user__
-    // delete (article as any).__promise_topics__
-    // delete (article as any).__promise_tags__
-    // console.log('article', article)
     return {
       article,
     }

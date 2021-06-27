@@ -5,11 +5,7 @@ import { resolve } from 'path'
 import * as fs from 'fs'
 import { merge } from "lodash"
 
-const resolveFile = (file: string) => {
-  const path =  resolve(process.cwd(), file)
-  console.log(path)
-  return path
-}
+const resolveFile = (file: string) => resolve(process.cwd(), file)
 
 const loadYamlFile = () => {
   const config = [
