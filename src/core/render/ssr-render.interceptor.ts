@@ -18,10 +18,12 @@ export interface SsrRenderOptions {
 @Injectable()
 export class SsrRenderInterceptor implements NestInterceptor {
 
-  @Inject(REFLECTOR) protected readonly reflector: Reflector
+  @Inject(REFLECTOR) 
+  protected readonly reflector: Reflector
 
   @Optional()
-  @Inject(CacheService) private cache: CacheService
+  @Inject(CacheService) 
+  private cache: CacheService
 
   protected renderContext: any
 
@@ -34,7 +36,6 @@ export class SsrRenderInterceptor implements NestInterceptor {
     let result: any
     const key = `${req.protocol}://${req.get('host')}${req.originalUrl}`
     const noCache = req.get('cache-control') === 'no-cache'
-    console.log('cache', cache)
     if (cache && !noCache) {
       result = await this.cache.get(key)
     }

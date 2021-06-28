@@ -66,7 +66,7 @@ export class DatabaseModule {
           password: mysqlConf.password,
           synchronize: false,
           entities: [...entities, entityPath].filter(e => e),
-          // autoLoadEntities: true,
+          autoLoadEntities: true,
           logging: "all", // query, error, schema, warn, info, log, all
           logger: new TypeOrmLogger() as Logger,
           maxQueryExecutionTime: 20, // 单位毫秒
@@ -83,7 +83,7 @@ export class DatabaseModule {
           extra: {
             supportBigNumbers: true,
             bigNumberStrings: true,
-            // multipleStatements: true
+            multipleStatements: true
           },
         }
       },

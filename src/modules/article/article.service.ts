@@ -120,7 +120,7 @@ export class ArticleService {
 
     const [items, total] = await Promise.all([
       this.getArticlesWithBuilder(builder.clone(), page, limit),
-      builder.cache(30 * 1000).getCount()
+      builder.cache(3600 * 1000).getCount()
     ])
 
     return createPaginationObject(items, total, page, limit, route)

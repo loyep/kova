@@ -7,7 +7,7 @@ export class ArticleController {
   constructor(private readonly service: ArticleService) { }
 
   @Get('/')
-  @SsrRender()
+  @SsrRender({ cache: true })
   async home() {
     return {
       service: this.service
