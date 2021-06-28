@@ -5,7 +5,7 @@
  * @author Surmon <https://github.com/surmon-china>
  */
 
-import { ErrorCode } from "@/constants/error";
+import { ErrorCode } from "~/constants/error";
 import { MyHttpException, MyHttpExceptionData } from "./my-http.exception";
 
 /**

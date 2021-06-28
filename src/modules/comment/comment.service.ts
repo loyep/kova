@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
 import { Repository } from "typeorm"
-import { Comment } from "@/entity/comment.entity"
-import { ListResult } from "@/entity/_base.entity"
-import { paginate } from "@/core/common/paginate"
-import { CreateCommentDto } from "@/modules/comment/dto/create-comment.dto"
-import { UpdateCommentDto } from "@/modules/comment/dto/update-comment.dto"
+import { Comment } from "~/entity/comment.entity"
+import { ListResult } from "~/entity/_base.entity"
+import { paginate } from "~/core/common/paginate"
+import { CreateCommentDto } from "~/modules/comment/dto/create-comment.dto"
+import { UpdateCommentDto } from "~/modules/comment/dto/update-comment.dto"
 
 export const CommentNotFound = new NotFoundException("未找到分类")
 

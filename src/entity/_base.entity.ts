@@ -1,5 +1,5 @@
 import { BaseEntity as TypeormEntity } from "typeorm"
-export { LocalDateTransformer, MetaTransformer } from '@/core/database/transformer';
+export { LocalDateTransformer, MetaTransformer } from '~/core/database/transformer';
 
 export class ListResult<T> {
   list: T[]

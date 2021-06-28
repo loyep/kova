@@ -5,12 +5,17 @@ import { SProps, IContext } from 'ssr-types-react'
 // import Search from '@/components/search'
 import { IData } from '@/interface'
 import { Button } from 'antd'
+import { useHistory } from 'react-router'
 
 export default (props: SProps) => {
   const { state, dispatch } = useContext<IContext<IData>>(window.STORE_CONTEXT)
+  const history = useHistory()
+  const onShowDetail = () => {
+    history.push('/article/test')
+  }
   return (
     <div>
-      <Button>test2</Button>
+      <Button onClick={onShowDetail}>test2</Button>
       {/* <Search></Search>
       {
         state?.indexData?.data?.[0]?.components ? <div>

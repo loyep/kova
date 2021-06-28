@@ -1,11 +1,11 @@
-import { CacheService } from '@/core/cache'
-import { User, UserStatus } from "@/entity/user.entity"
+import { CacheService } from '~/core/cache'
+import { User, UserStatus } from "~/entity/user.entity"
 import { Inject, Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
 import { Like, Repository } from "typeorm"
 import { compareSync, hashSync } from "bcrypt"
-import { ListResult } from "@/entity/_base.entity"
-import { paginate } from "@/core/common/paginate"
+import { ListResult } from "~/entity/_base.entity"
+import { paginate } from "~/core/common/paginate"
 import { CreateUserDto } from "./dto/create-user.dto"
 import { UpdateUserDto } from "./dto/update-user.dto"
 import { FindConditions } from "typeorm/find-options/FindConditions"

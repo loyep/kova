@@ -1,4 +1,4 @@
-import { Topic } from "@/entity/topic.entity"
+import { Topic } from "~/entity/topic.entity"
 import { Module } from "@nestjs/common"
 import { TypeOrmModule } from "@nestjs/typeorm"
 

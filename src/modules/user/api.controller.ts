@@ -1,5 +1,5 @@
-import { APIPrefix } from '@/constants'
-import { ParsePagePipe } from '@/core/pipes/parse-page.pipe'
+import { APIPrefix } from '~/constants'
+import { ParsePagePipe } from '~/core/pipes/parse-page.pipe'
 import { Controller, Get, Query } from '@nestjs/common'
 import { ApiOperation } from "@nestjs/swagger"
 import { UserService } from './user.service'

@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
 import { Like, Not, Repository } from "typeorm"
-import { Category } from "@/entity/category.entity"
-import { ListResult } from "@/entity/_base.entity"
-import { paginate } from "@/core/common/paginate"
-import { CreateCategoryDto } from "@/modules/category/dto/create-category.dto"
-import { UpdateCategoryDto } from "@/modules/category/dto/update-category.dto"
+import { Category } from "~/entity/category.entity"
+import { ListResult } from "~/entity/_base.entity"
+import { paginate } from "~/core/common/paginate"
+import { CreateCategoryDto } from "~/modules/category/dto/create-category.dto"
+import { UpdateCategoryDto } from "~/modules/category/dto/update-category.dto"
 
 export const CategoryNotFound = new NotFoundException("未找到分类")
 

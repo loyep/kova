@@ -1,10 +1,10 @@
 import { Inject, Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
 import { Repository } from "typeorm"
-import { Collection } from "@/entity/collection.entity"
-import { LoggerService } from "@/core/logger"
-import { Article } from "@/entity/article.entity"
-import { paginate } from "@/core/common/paginate"
+import { Collection } from "~/entity/collection.entity"
+import { LoggerService } from "~/core/logger"
+import { Article } from "~/entity/article.entity"
+import { paginate } from "~/core/common/paginate"
 
 export enum CollectionType {
   Article = "article",

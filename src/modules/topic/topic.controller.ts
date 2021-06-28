@@ -1,11 +1,11 @@
 import { Body, Controller, Get, Param, Put, Query } from "@nestjs/common"
 import { TopicNotFound, TopicService } from "./topic.service"
-import { AdminAPIPrefix, APIPrefix } from "@/constants/constants"
+import { AdminAPIPrefix, APIPrefix } from "~/constants/constants"
 import { ApiOperation } from "@nestjs/swagger"
-import { ParsePagePipe, ParsePageSizePipe } from "@/core/pipes/parse-page.pipe"
-import { MyHttpException } from "@/core/exceptions/my-http.exception"
-import { ErrorCode } from "@/constants/error"
-import { Topic } from "@/entity/topic.entity"
+import { ParsePagePipe, ParsePageSizePipe } from "~/core/pipes/parse-page.pipe"
+import { MyHttpException } from "~/core/exceptions/my-http.exception"
+import { ErrorCode } from "~/constants/error"
+import { Topic } from "~/entity/topic.entity"
 
 @Controller()
 export class TopicController {

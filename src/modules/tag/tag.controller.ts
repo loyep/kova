@@ -1,12 +1,12 @@
-import { AdminAPIPrefix, APIPrefix } from "@/constants"
+import { AdminAPIPrefix, APIPrefix } from "~/constants"
 import { Controller, Get, Query, Param, Put, Body, Post, Delete } from "@nestjs/common"
 import { TagService, TagNotFound } from "./tag.service"
 import { ApiOperation } from "@nestjs/swagger"
-import { ParsePagePipe, ParsePageSizePipe } from "@/core/pipes/parse-page.pipe"
-import { MyHttpException } from "@/core/exceptions/my-http.exception"
-import { ErrorCode } from "@/constants/error"
-import { CreateTagDto } from "@/modules/tag/dto/create-tag.dto"
-import { UpdateTagDto } from "@/modules/tag/dto/update-tag.dto"
+import { ParsePagePipe, ParsePageSizePipe } from "~/core/pipes/parse-page.pipe"
+import { MyHttpException } from "~/core/exceptions/my-http.exception"
+import { ErrorCode } from "~/constants/error"
+import { CreateTagDto } from "~/modules/tag/dto/create-tag.dto"
+import { UpdateTagDto } from "~/modules/tag/dto/update-tag.dto"
 
 @Controller()
 export class TagController {

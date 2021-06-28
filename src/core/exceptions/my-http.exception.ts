@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus } from "@nestjs/common"
-import { ErrorCode } from "@/constants/error"
+import { ErrorCode } from "~/constants/error"
 
 export class MyHttpExceptionData {
   code?: number

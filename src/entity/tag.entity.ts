@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm"
-import { Article } from "@/entity/article.entity"
+import { Article } from "~/entity/article.entity"
 import { BaseEntity, LocalDateTransformer } from './_base.entity'
 
 export interface TagMeta {

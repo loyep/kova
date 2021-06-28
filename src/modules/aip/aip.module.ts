@@ -1,7 +1,7 @@
 import { DynamicModule, HttpModule, Module } from "@nestjs/common"
 import { AipService } from "./aip.service"
 import { TranslateService } from "./translate.service"
-import { SolutionService } from "@/modules/aip/solution.service"
+import { SolutionService } from "~/modules/aip/solution.service"
 
 @Module({
   imports: [HttpModule.register({ timeout: 5000 })],

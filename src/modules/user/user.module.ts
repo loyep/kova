@@ -8,7 +8,7 @@ import { ApiController } from "./api.controller"
 
 // Services
 import { UserService } from "./user.service"
-import { User } from "@/entity/user.entity"
+import { User } from "~/entity/user.entity"
 
 @Module({
     imports: [

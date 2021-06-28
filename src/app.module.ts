@@ -1,6 +1,6 @@
 import { MiddlewareConsumer, Module, RequestMethod } from "@nestjs/common"
 import { CacheModule, ConfigModule, LoggerModule } from "./core"
-import { LoggerMiddleware } from "@/middleware/logger.middleware"
+import { LoggerMiddleware } from "~/middleware/logger.middleware"
 import { UserModule } from "./modules/user"
 import { ArticleModule } from "./modules/article/article.module"
 import { CategoryModule } from "./modules/category"

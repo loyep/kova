@@ -6,10 +6,10 @@ import {
   MemoryHealthIndicator,
   // TypeOrmHealthIndicator,
 } from "@nestjs/terminus"
-import { APIPrefix } from "@/constants/constants"
+import { APIPrefix } from "~/constants/constants"
 import { Controller, Get } from "@nestjs/common"
-import { ErrorCode } from "@/constants/error"
-import { MyHttpException } from "@/core/exceptions/my-http.exception"
+import { ErrorCode } from "~/constants/error"
+import { MyHttpException } from "~/core/exceptions/my-http.exception"
 
 @Controller()
 export class HealthController {

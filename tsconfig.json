@@ -18,10 +18,10 @@
     "outDir": "dist",
     "typeRoots": [ "./typings", "./node_modules/@types"],
     "paths": {
-      "@/*": [
+      "~/*": [
         "src/*"
       ],
-      "~/*": [
+      "@/*": [
         "web/*"
       ]
     },

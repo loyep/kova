@@ -11,15 +11,15 @@ import {
   Req,
 } from "@nestjs/common"
 import { CommentService } from "./comment.service"
-import { AdminAPIPrefix, APIPrefix } from "@/constants/constants"
+import { AdminAPIPrefix, APIPrefix } from "~/constants/constants"
 import { Request } from 'express'
 import { ApiOperation } from "@nestjs/swagger"
-import { ParsePagePipe, ParsePageSizePipe } from "@/core/pipes/parse-page.pipe"
-import { MyHttpException } from "@/core/exceptions/my-http.exception"
-import { ErrorCode } from "@/constants/error"
-import { CreateCommentDto } from "@/modules/comment/dto/create-comment.dto"
-import { UpdateCommentDto } from "@/modules/comment/dto/update-comment.dto"
-import { SolutionService } from "@/modules/aip/solution.service"
+import { ParsePagePipe, ParsePageSizePipe } from "~/core/pipes/parse-page.pipe"
+import { MyHttpException } from "~/core/exceptions/my-http.exception"
+import { ErrorCode } from "~/constants/error"
+import { CreateCommentDto } from "~/modules/comment/dto/create-comment.dto"
+import { UpdateCommentDto } from "~/modules/comment/dto/update-comment.dto"
+import { SolutionService } from "~/modules/aip/solution.service"
 import { Throttle } from "@nestjs/throttler";
 
 @Controller()

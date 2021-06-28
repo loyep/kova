@@ -5,7 +5,7 @@ import { CategoryController } from "./category.controller"
 
 // Services
 import { CategoryService } from "./category.service"
-import { Category } from "@/entity/category.entity"
+import { Category } from "~/entity/category.entity"
 import { TypeOrmModule } from "@nestjs/typeorm"
 
 @Module({

@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
 import { Like, Repository } from "typeorm"
-import { Topic } from "@/entity/topic.entity"
-import { ListResult } from "@/entity/_base.entity"
-import { paginate } from "@/core/common/paginate"
+import { Topic } from "~/entity/topic.entity"
+import { ListResult } from "~/entity/_base.entity"
+import { paginate } from "~/core/common/paginate"
 
 export const TopicNotFound = new NotFoundException("未找到专题")
 

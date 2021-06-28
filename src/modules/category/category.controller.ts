@@ -10,13 +10,13 @@ import {
   Query,
 } from "@nestjs/common"
 import { CategoryNotFound, CategoryService } from "./category.service"
-import { AdminAPIPrefix, APIPrefix } from "@/constants/constants"
+import { AdminAPIPrefix, APIPrefix } from "~/constants/constants"
 import { ApiOperation } from "@nestjs/swagger"
-import { ParsePagePipe, ParsePageSizePipe } from "@/core/pipes/parse-page.pipe"
-import { MyHttpException } from "@/core/exceptions/my-http.exception"
-import { ErrorCode } from "@/constants/error"
-import { CreateCategoryDto } from "@/modules/category/dto/create-category.dto"
-import { UpdateCategoryDto } from "@/modules/category/dto/update-category.dto"
+import { ParsePagePipe, ParsePageSizePipe } from "~/core/pipes/parse-page.pipe"
+import { MyHttpException } from "~/core/exceptions/my-http.exception"
+import { ErrorCode } from "~/constants/error"
+import { CreateCategoryDto } from "~/modules/category/dto/create-category.dto"
+import { UpdateCategoryDto } from "~/modules/category/dto/update-category.dto"
 
 @Controller()
 export class CategoryController {

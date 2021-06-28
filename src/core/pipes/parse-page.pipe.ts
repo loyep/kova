@@ -1,4 +1,4 @@
-import { ErrorCode } from "@/constants/error"
+import { ErrorCode } from "~/constants/error"
 import { ArgumentMetadata, Injectable, PipeTransform } from "@nestjs/common"
 import { MyHttpException } from "../exceptions/my-http.exception"
 

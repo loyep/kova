@@ -8,8 +8,8 @@ import {
   Index,
   DeleteDateColumn,
 } from "typeorm"
-import { Article } from "@/entity/article.entity"
-import { BaseEntity, MetaTransformer } from "@/entity/_base.entity"
+import { Article } from "~/entity/article.entity"
+import { BaseEntity, MetaTransformer } from "~/entity/_base.entity"
 
 export interface CategoryMeta {
   cover: string

@@ -1,5 +1,5 @@
 import { ArgumentMetadata, Injectable, PipeTransform, Scope } from "@nestjs/common"
-import { ErrorCode } from "@/constants/error"
+import { ErrorCode } from "~/constants/error"
 import { MyHttpException } from "../exceptions/my-http.exception"
 
 @Injectable({ scope: Scope.REQUEST })

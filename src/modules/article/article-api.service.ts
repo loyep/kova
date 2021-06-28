@@ -1,9 +1,9 @@
 import { InjectRepository } from "@nestjs/typeorm"
 import { Repository, } from "typeorm"
-import { Article } from "@/entity/article.entity"
+import { Article } from "~/entity/article.entity"
 import { Injectable } from "@nestjs/common"
-import { MyHttpException } from "@/core/exceptions/my-http.exception"
-import { ErrorCode } from "@/constants/error"
+import { MyHttpException } from "~/core/exceptions/my-http.exception"
+import { ErrorCode } from "~/constants/error"
 
 export const ArticleNotFound = new MyHttpException({
   code: ErrorCode.NotFound.CODE,
@@ -14,17 +14,4 @@ export const ArticleNotFound = new MyHttpException({
 export class ArticleApiService {
 
   @InjectRepository(Article) protected readonly repo: Repository<Article>
-
-  async getHomeData() {
-    const article = await this.getFirstArticle()
-
-    return {
-      article,
-    }
-  }
-
-  async getFirstArticle() {
-    const article = await this.repo.findOne({ loadEagerRelations: false, relations: ['category'] , order: { id: 'DESC' } })
-    return article
-  }
 }

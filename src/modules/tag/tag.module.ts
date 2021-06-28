@@ -6,7 +6,7 @@ import { TagController } from "./tag.controller"
 
 // Services
 import { TagService } from "./tag.service"
-import { Tag } from "@/entity/tag.entity"
+import { Tag } from "~/entity/tag.entity"
 
 @Module({
   imports: [TypeOrmModule.forFeature([Tag])],

@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
 import { Like, Repository } from "typeorm"
-import { Tag } from "@/entity/tag.entity"
-import { ListResult } from "@/entity/_base.entity"
-import { paginate } from "@/core/common/paginate"
-import { CreateTagDto } from "@/modules/tag/dto/create-tag.dto"
-import { UpdateTagDto } from "@/modules/tag/dto/update-tag.dto"
+import { Tag } from "~/entity/tag.entity"
+import { ListResult } from "~/entity/_base.entity"
+import { paginate } from "~/core/common/paginate"
+import { CreateTagDto } from "~/modules/tag/dto/create-tag.dto"
+import { UpdateTagDto } from "~/modules/tag/dto/update-tag.dto"
 
 export const TagNotFound = new NotFoundException("未找到标签")
 

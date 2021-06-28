@@ -8,12 +8,12 @@ import {
   UseGuards,
 } from "@nestjs/common"
 import { ApiOperation } from "@nestjs/swagger"
-import { APIPrefix } from "@/constants/constants"
-import { ParsePagePipe } from "@/core/pipes/parse-page.pipe"
-import { MustIntPipe } from "@/core/pipes/must-int.pipe"
-import { CurUser } from "@/core/decorators/user.decorator"
+import { APIPrefix } from "~/constants/constants"
+import { ParsePagePipe } from "~/core/pipes/parse-page.pipe"
+import { MustIntPipe } from "~/core/pipes/must-int.pipe"
+import { CurUser } from "~/core/decorators/user.decorator"
 import { CollectionService } from "./collection.service"
-import { JwtAuthGuard } from "@/core/guards/auth.guard"
+import { JwtAuthGuard } from "~/core/guards/auth.guard"
 
 @Controller()
 export class CollectionController {

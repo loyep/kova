@@ -9,9 +9,9 @@ import { ArticleController } from "./article.controller"
 import { ArticleService } from "./article.service"
 import { ArticleApiService } from "./article-api.service"
 
-import { AipModule } from "@/modules/aip"
+import { AipModule } from "~/modules/aip"
 
-import { Article } from "@/entity/article.entity"
+import { Article } from "~/entity/article.entity"
 
 @Module({
     imports: [
