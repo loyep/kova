@@ -76,7 +76,7 @@ export class ArticleService {
 
   async getHomeData() {
     const [article, banners = []] = await Promise.all([
-      this.simplePaginate({ page: 1, pageSize: 20 }, {
+      this.paginate({ page: 1, pageSize: 20 }, {
       }),
       this.bannerList(),
     ])
