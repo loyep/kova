@@ -76,7 +76,7 @@ export class ArticleService {
 
   async getHomeData() {
     const [article, banners = []] = await Promise.all([
-      this.paginate({ page: 1, pageSize: 20 }, {
+      this.simplePaginate({ page: 1, pageSize: 20 }, {
       }),
       this.bannerList(),
     ])
@@ -91,6 +91,43 @@ export class ArticleService {
   }
 
   async paginate(
+    options: IPaginatorOptions,
+    {
+      s,
+      userId,
+      categoryId,
+      tagId,
+    }: {
+      s?: string
+      userId?: number
+      categoryId?: number
+      tagId?: number
+    } = {},
+  ) {
+    const conditions = (() => {
+      let conditions = [`a.public = ${true}`]
+      if (categoryId) conditions.push(`a.category_id = '${categoryId}'`);
+      if (s) conditions.push(`INSTR(a.title, '${s}') > 0`);
+      if (userId) conditions.push(`a.user_id = ${userId}`);
+      return conditions.join(' and ')
+    })()
+
+    const paginator: IPaginationOptions =
+      typeof options !== "number" ? options : { page: options, pageSize: 20 }
+    const [page, limit] = resolveOptions(paginator)
+    const builder = this.repo.createQueryBuilder('a').where(conditions)
+    if (tagId) builder.innerJoin('a.tags', 'tags', 'tags.id = :tagId', { tagId })
+
+    const [items] = await Promise.all([
+      this.getArticlesWithBuilder(builder.clone(), page, limit),
+      // builder.clone().getOne()
+    ])
+
+    return { items, hasMore: true }
+    // return createPaginationObject(items, total, page, limit, route)
+  }
+
+  async simplePaginate(
     options: IPaginatorOptions,
     {
       s,
