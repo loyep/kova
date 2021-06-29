@@ -1,5 +1,5 @@
 import { useEnhancedEffect } from "@/hooks"
-import { FC, Fragment, ReactNode, useEffect, useState } from "react"
+import React, { FC, Fragment, ReactNode, useEffect, useState } from "react"
 
 export interface NoSsrProps {
   children: ReactNode

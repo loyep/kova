@@ -1,6 +1,7 @@
 import { ISSRContext } from 'ssr-types-react'
 import { IndexData } from '@/interface'
-interface IApiService {
+
+type IApiService = {
   getHomeData: () => Promise<IndexData>
 }
 

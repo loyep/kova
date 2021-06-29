@@ -1,4 +1,4 @@
-import { ElementType, FC, ReactNode, forwardRef } from 'react';
+import React, { ElementType, FC, ReactNode, forwardRef } from 'react';
 import cls from 'classnames';
 import { NoSsr } from '../NoSsr';
 import './index.less';

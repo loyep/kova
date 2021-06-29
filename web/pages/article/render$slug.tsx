@@ -16,6 +16,10 @@ const article:FC<SProps> = (props: SProps) => {
     setRoute(params)
   }, [])
 
+  useEffect(() => {
+    console.log(state)
+  }, [state])
+
   const onBack = () => {
     history.push('/')
   }
