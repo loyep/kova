@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { SProps, IContext } from 'ssr-types-react'
 import { IData } from '@/interface'
 import { Button } from 'antd'
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router'
 
 export default (props: SProps) => {
   const { state, dispatch } = useContext<IContext<IData>>(window.STORE_CONTEXT)
@@ -17,6 +17,7 @@ export default (props: SProps) => {
 
   return (
     <div>
+      用户页
       <Button onClick={onShowDetail}>test2</Button>
     </div>
   )
