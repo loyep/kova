@@ -35,7 +35,7 @@ export default (props: LayoutProps) => {
           </Menu>
         </Header>
         <Content>{props.children}</Content>
-        <Footer>Footer</Footer>
+        <Footer style={{ bottom: 0, position: 'fixed' }}>Footer</Footer>
       </Layout>
       <Progress />
     </ConfigProvider>
