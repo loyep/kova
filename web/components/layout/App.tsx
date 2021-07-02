@@ -4,17 +4,40 @@
 import { LayoutProps } from 'ssr-types-react'
 import { ConfigProvider } from 'antd'
 import zhCN from 'antd/lib/locale/zh_CN';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Progress } from '../UI/Progress'
+import { Layout, Menu } from 'antd';
+import { useHistory, useLocation } from 'react-router';
+
+const { Header, Footer, Content } = Layout;
+const { SubMenu } = Menu;
 
 export default (props: LayoutProps) => {
+  const [current, setCurrent] = useState('')
+  const router = useLocation()
+  useEffect(() => {
+    setCurrent(router.pathname)
+  }, [])
 
   return (
     <ConfigProvider locale={zhCN}>
-      {/* <SettingContext.Provider value={settings}> */}
-      {props.children}
+      <Layout>
+        <Header>
+          <Menu selectedKeys={[current]} mode="horizontal">
+            <Menu.Item key="/">首页</Menu.Item>
+            <Menu.Item key="app">文章</Menu.Item>
+            <SubMenu key="SubMenu" title="Navigation Three - Submenu">
+              <Menu.Item key="setting:1">Option 1</Menu.Item>
+              <Menu.Item key="setting:2">Option 2</Menu.Item>
+              <Menu.Item key="setting:3">Option 3</Menu.Item>
+              <Menu.Item key="setting:4">Option 4</Menu.Item>
+            </SubMenu>
+          </Menu>
+        </Header>
+        <Content>{props.children}</Content>
+        <Footer>Footer</Footer>
+      </Layout>
       <Progress />
-      {/* </SettingContext.Provider> */}
     </ConfigProvider>
   )
 }
