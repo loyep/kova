@@ -22,8 +22,8 @@ export default (props: LayoutProps) => {
   return (
     <ConfigProvider locale={zhCN}>
       <Layout>
-        <Header style={{ bottom: 0, position: 'sticky' }}>
-          <Menu selectedKeys={[current]} mode="horizontal">
+        <Header style={{ top: 0, position: 'sticky' }}>
+          <Menu selectedKeys={[current]} mode="horizontal" theme="dark">
             <Menu.Item key="/">首页</Menu.Item>
             <Menu.Item key="app">文章</Menu.Item>
             <SubMenu key="SubMenu" title="Navigation Three - Submenu">
