@@ -19,6 +19,10 @@ export default (props: LayoutProps) => {
     setCurrent(router.pathname)
   }, [])
 
+  useEffect(() => {
+    setCurrent(router.pathname)
+  }, [router])
+
   return (
     <ConfigProvider locale={zhCN}>
       <Layout>
