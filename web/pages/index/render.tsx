@@ -19,7 +19,7 @@ export default (props: SProps) => {
     <div>
       <Button onClick={onShowDetail}>test2</Button>
       {((state?.indexData.data as any).items as any[]).map(item => (
-        <Card title={item.title} style={{ width: 300 }}>
+        <Card title={item.title} style={{ width: '100%' }}>
         </Card>))}
     </div>
   )
