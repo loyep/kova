@@ -4,7 +4,7 @@
 import { LayoutProps } from 'ssr-types-react'
 import { ConfigProvider } from 'antd'
 import zhCN from 'antd/lib/locale/zh_CN';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Progress } from '../UI/Progress'
 import { Layout, Menu } from 'antd';
 import { useHistory, useLocation } from 'react-router';
@@ -22,7 +22,7 @@ export default (props: LayoutProps) => {
   return (
     <ConfigProvider locale={zhCN}>
       <Layout>
-        <Header>
+        <Header style={{ bottom: 0, position: 'sticky' }}>
           <Menu selectedKeys={[current]} mode="horizontal">
             <Menu.Item key="/">首页</Menu.Item>
             <Menu.Item key="app">文章</Menu.Item>
@@ -35,7 +35,7 @@ export default (props: LayoutProps) => {
           </Menu>
         </Header>
         <Content>{props.children}</Content>
-        <Footer style={{ bottom: 0, position: 'fixed' }}>Footer</Footer>
+        <Footer>Footer</Footer>
       </Layout>
       <Progress />
     </ConfigProvider>
