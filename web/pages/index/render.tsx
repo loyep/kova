@@ -18,7 +18,7 @@ export default (props: SProps) => {
   return (
     <div>
       <NavLink to="/article/test233">
-        <Button>test233</Button>
+        <Button>测试详情页</Button>
       </NavLink>
       {((state?.indexData.data as any).items as any[]).map(item => (
         <Card title={item.title} style={{ width: '100%' }}>

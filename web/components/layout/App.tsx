@@ -8,6 +8,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Progress } from '../UI/Progress'
 import { Layout, Menu } from 'antd';
 import { useRouteMatch, useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const { Header, Footer, Content } = Layout;
 const { SubMenu } = Menu;
@@ -21,7 +22,11 @@ export default (props: LayoutProps) => {
         <Header style={{ top: 0, position: 'sticky' }}>
           <Menu selectedKeys={[match.url]} mode="horizontal" theme="dark">
             <Menu.Item key="/">首页</Menu.Item>
-            <Menu.Item key="app">文章</Menu.Item>
+            <Menu.Item key="/article/testtt">
+              <Link to="/article/testttt">
+              文章
+              </Link>
+            </Menu.Item>
             <SubMenu key="SubMenu" title="Navigation Three - Submenu">
               <Menu.Item key="setting:1">Option 1</Menu.Item>
               <Menu.Item key="setting:2">Option 2</Menu.Item>
