@@ -1,34 +1,38 @@
-import { Injectable, NotFoundException } from "@nestjs/common"
-import { InjectRepository } from "@nestjs/typeorm"
-import { Like, Not, Repository } from "typeorm"
-import { Category } from "~/entity/category.entity"
-import { ListResult } from "~/entity/_base.entity"
-import { paginate } from "~/core/common/paginate"
-import { CreateCategoryDto } from "~/modules/category/dto/create-category.dto"
-import { UpdateCategoryDto } from "~/modules/category/dto/update-category.dto"
+import { Injectable, NotFoundException } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Like, Not, Repository } from 'typeorm'
+import { Category } from '~/entity/category.entity'
+import { ListResult } from '~/entity/_base.entity'
+import { paginate } from '~/core/common/paginate'
+import { CreateCategoryDto } from '~/modules/category/dto/create-category.dto'
+import { UpdateCategoryDto } from '~/modules/category/dto/update-category.dto'
 
-export const CategoryNotFound = new NotFoundException("未找到分类")
+export const CategoryNotFound = new NotFoundException('未找到分类')
 
 @Injectable()
 export class CategoryService {
-  constructor(
+  constructor (
     @InjectRepository(Category)
     private readonly repo: Repository<Category>,
-  ) {}
+  ) {
+  }
 
-  all(): Promise<Category[]> {
+  all (): Promise<Category[]> {
     return this.repo.find({
-      select: ["id", "image", "name", "description", "posts_count"],
+      select: ['id', 'image', 'name', 'description', 'posts_count'],
       order: {
-        created_at: "DESC",
+        created_at: 'DESC',
       },
     } as any)
   }
 
-  async paginate(page: number, { s }: { s?: string } = {}) {
+  async paginate (page: number, { s }: { s?: string } = {}) {
     return await paginate<Category>(
       this.repo,
-      { page, pageSize: 20 },
+      {
+        page,
+        pageSize: 20
+      },
       {
         where: {
           ...(s ? { name: Like(`%${s}%`) } : {}),
@@ -37,7 +41,7 @@ export class CategoryService {
     )
   }
 
-  async index(
+  async index (
     page: number,
     pageSize: number,
     { s }: { s?: string } = {},
@@ -45,7 +49,10 @@ export class CategoryService {
   ) {
     return await paginate<Category>(
       this.repo,
-      { page, pageSize },
+      {
+        page,
+        pageSize
+      },
       {
         select,
         where: {
@@ -55,7 +62,7 @@ export class CategoryService {
     )
   }
 
-  async list({
+  async list ({
     page,
     pageSize = 20,
   }: {
@@ -78,9 +85,9 @@ export class CategoryService {
     }
   }
 
-  findBySlug(slug: string) {
+  findBySlug (slug: string) {
     return this.repo.findOneOrFail({
-      select: ["id", "image", "name", "description", "articles_count", "slug"],
+      select: ['id', 'image', 'name', 'description', 'articles_count', 'slug'],
       where: {
         slug,
       },
@@ -88,44 +95,47 @@ export class CategoryService {
     })
   }
 
-  findById(id: number) {
+  findById (id: number) {
     return this.repo.findOne(id, {
-      select: ["id", "image", "name", "description", "articles_count", "slug"],
+      select: ['id', 'image', 'name', 'description', 'articles_count', 'slug'],
     })
   }
 
-  create(createCategoryDto: CreateCategoryDto) {
+  create (createCategoryDto: CreateCategoryDto) {
     console.log(createCategoryDto)
-    return "This action adds a new category"
+    return 'This action adds a new category'
   }
 
-  findAll() {
+  findAll () {
     return `This action returns all category`
   }
 
-  findOne(id: number) {
+  findOne (id: number) {
     return this.repo.findOne(id, {
-      select: ["id", "image", "name", "description", "articles_count", "slug"],
+      select: ['id', 'image', 'name', 'description', 'articles_count', 'slug'],
     })
   }
 
-  async update(id: number, updateCategoryDto: UpdateCategoryDto) {
+  async update (id: number, updateCategoryDto: UpdateCategoryDto) {
     const existedSlug = await this.existSlug(id, updateCategoryDto.slug)
     if (existedSlug) {
-      throw new Error("别名已被占用")
+      throw new Error('别名已被占用')
     }
     await this.repo.update(id, updateCategoryDto)
     return await this.repo.findOneOrFail(id)
   }
 
-  remove(id: number) {
+  remove (id: number) {
     return `This action removes a #${id} category`
   }
 
-  async existSlug(id: number | string, slug: string) {
+  async existSlug (id: number | string, slug: string) {
     const existedTag = await this.repo
       .createQueryBuilder()
-      .where({ id: Not(id), slug })
+      .where({
+        id: Not(id),
+        slug
+      })
       .getOne()
     return !!existedTag
   }

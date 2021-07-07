@@ -1,84 +1,81 @@
-import { InjectRepository } from "@nestjs/typeorm"
-import { LessThan, MoreThan, Not, Repository, SelectQueryBuilder } from "typeorm"
-import { Article, ArticleStatusType } from "~/entity/article.entity"
-import { defaultMeta } from "~/entity/article.entity"
-import { Injectable } from "@nestjs/common"
-import { IPaginatorOptions, paginate, resolveOptions, createPaginationObject } from "~/core/common/paginate"
-import { CreateArticleDto } from "./dto/create-article.dto"
-import { UpdateArticleDto } from "./dto/update-article.dto"
-import { MyHttpException } from "~/core/exceptions/my-http.exception"
-import { ErrorCode } from "~/constants/error"
-import { getColumnNames } from "~/core/database/repository"
-import { Category } from "~/entity/category.entity"
-import { IPaginationOptions } from "~/core/common/paginate/paginate.interface"
-import { User } from "~/entity/user.entity"
-import { isEmpty } from "lodash"
-import { Content } from "~/entity/content.entity"
+import { InjectRepository } from '@nestjs/typeorm'
+import { LessThan, MoreThan, Not, Repository, SelectQueryBuilder } from 'typeorm'
+import { Article, ArticleStatusType, defaultMeta } from '~/entity/article.entity'
+
+import { Injectable } from '@nestjs/common'
+import { IPaginatorOptions, paginate, resolveOptions, createPaginationObject } from '~/core/common/paginate'
+import { CreateArticleDto } from './dto/create-article.dto'
+import { UpdateArticleDto } from './dto/update-article.dto'
+import { MyHttpException } from '~/core/exceptions/my-http.exception'
+import { ErrorCode } from '~/constants/error'
+import { getColumnNames } from '~/core/database/repository'
+import { Category } from '~/entity/category.entity'
+import { IPaginationOptions } from '~/core/common/paginate/paginate.interface'
+import { User } from '~/entity/user.entity'
+import { isEmpty } from 'lodash'
+import { Content } from '~/entity/content.entity'
 
 const mergeItems = <T = any>(items: T[], joinItems: any[], keyPath: string, propertyName: string, joinKeyPath: string = 'id') => {
   if (isEmpty(items) || isEmpty(joinItems)) return
 
-  const m = new Map<string | number, T>();
+  const m = new Map<string | number, T>()
   for (let i = 0, len = joinItems.length; i < len; i++) {
     const joinItem = joinItems[i]
     const key = joinItem[joinKeyPath]
-    if (!m.get(key))
-      m.set(key, joinItem)
+    if (!m.get(key)) { m.set(key, joinItem) }
   }
 
   for (let i = 0, len = items.length; i < len; i++) {
     const item = items[i]
-    if (item[keyPath])
-      item[propertyName] = m.get(item[keyPath]) || null
+    if (item[keyPath]) { item[propertyName] = m.get(item[keyPath]) || null }
   }
   return items
 }
 
 export const ArticleNotFound = new MyHttpException({
   code: ErrorCode.NotFound.CODE,
-  message: "未找到文章",
+  message: '未找到文章'
 })
 
 @Injectable()
 export class ArticleService {
-
   @InjectRepository(Article) protected readonly repo: Repository<Article>
 
-  all(): Promise<Article[]> {
-    return this.repo.find({
-      select: ["id", "image", "name", "description"],
+  async all (): Promise<Article[]> {
+    return await this.repo.find({
+      select: ['id', 'image', 'name', 'description'],
       order: {
-        created_at: "DESC",
-      },
+        created_at: 'DESC'
+      }
 
     } as any)
   }
 
-  async userLikeArticles(
+  async userLikeArticles (
     userId: number,
-    { page, pageSize = 20 }: { page: number; pageSize?: number },
+    { page, pageSize = 20 }: { page: number, pageSize?: number }
   ) {
     const builder = this.repo
-      .createQueryBuilder("a")
+      .createQueryBuilder('a')
       .innerJoinAndSelect(
-        "likes",
-        "likes",
-        "likes.like_id = a.id AND likes.user_id = :userId AND likes.type = :type",
+        'likes',
+        'likes',
+        'likes.like_id = a.id AND likes.user_id = :userId AND likes.type = :type',
         {
-          userId,
+          userId
           // type: LikeType.Article,
-        },
+        }
       )
-      .leftJoinAndSelect("a.user", "user")
-      .leftJoinAndSelect("a.category", "category")
+      .leftJoinAndSelect('a.user', 'user')
+      .leftJoinAndSelect('a.category', 'category')
     return await paginate<Article>(builder, { page, pageSize })
   }
 
-  async getHomeData() {
+  async getHomeData () {
     const [article, banners = []] = await Promise.all([
       this.paginate({ page: 1, pageSize: 20 }, {
       }),
-      this.bannerList(),
+      this.bannerList()
     ])
     return {
       data: article,
@@ -86,40 +83,40 @@ export class ArticleService {
     }
   }
 
-  listByUserId(userId: number, { page }: { page: number }) {
-    return this.paginate(page, { userId })
+  async listByUserId (userId: number, { page }: { page: number }) {
+    return await this.paginate(page, { userId })
   }
 
-  async paginate(
+  async paginate (
     options: IPaginatorOptions,
     {
       s,
       userId,
       categoryId,
-      tagId,
+      tagId
     }: {
       s?: string
       userId?: number
       categoryId?: number
       tagId?: number
-    } = {},
+    } = {}
   ) {
     const conditions = (() => {
-      let conditions = [`a.public = ${true}`]
-      if (categoryId) conditions.push(`a.category_id = '${categoryId}'`);
-      if (s) conditions.push(`INSTR(a.title, '${s}') > 0`);
-      if (userId) conditions.push(`a.user_id = ${userId}`);
+      const conditions = [`a.public = ${true}`]
+      if (categoryId) conditions.push(`a.category_id = '${categoryId}'`)
+      if (s) conditions.push(`INSTR(a.title, '${s}') > 0`)
+      if (userId) conditions.push(`a.user_id = ${userId}`)
       return conditions.join(' and ')
     })()
 
     const paginator: IPaginationOptions =
-      typeof options !== "number" ? options : { page: options, pageSize: 20 }
+      typeof options !== 'number' ? options : { page: options, pageSize: 20 }
     const [page, limit] = resolveOptions(paginator)
     const builder = this.repo.createQueryBuilder('a').where(conditions)
     if (tagId) builder.innerJoin('a.tags', 'tags', 'tags.id = :tagId', { tagId })
 
     const [items] = await Promise.all([
-      this.getArticlesWithBuilder(builder.clone(), page, limit),
+      this.getArticlesWithBuilder(builder.clone(), page, limit)
       // builder.clone().getOne()
     ])
 
@@ -127,30 +124,30 @@ export class ArticleService {
     // return createPaginationObject(items, total, page, limit, route)
   }
 
-  async simplePaginate(
+  async simplePaginate (
     options: IPaginatorOptions,
     {
       s,
       userId,
       categoryId,
-      tagId,
+      tagId
     }: {
       s?: string
       userId?: number
       categoryId?: number
       tagId?: number
-    } = {},
+    } = {}
   ) {
     const conditions = (() => {
-      let conditions = [`a.public = ${true}`]
-      if (categoryId) conditions.push(`a.category_id = '${categoryId}'`);
-      if (s) conditions.push(`INSTR(a.title, '${s}') > 0`);
-      if (userId) conditions.push(`a.user_id = ${userId}`);
+      const conditions = [`a.public = ${true}`]
+      if (categoryId) conditions.push(`a.category_id = '${categoryId}'`)
+      if (s) conditions.push(`INSTR(a.title, '${s}') > 0`)
+      if (userId) conditions.push(`a.user_id = ${userId}`)
       return conditions.join(' and ')
     })()
 
     const paginator: IPaginationOptions =
-      typeof options !== "number" ? options : { page: options, pageSize: 20 }
+      typeof options !== 'number' ? options : { page: options, pageSize: 20 }
     const [page, limit, route] = resolveOptions(paginator)
     const builder = this.repo.createQueryBuilder('a').where(conditions)
     if (tagId) builder.innerJoin('a.tags', 'tags', 'tags.id = :tagId', { tagId })
@@ -163,7 +160,7 @@ export class ArticleService {
     return createPaginationObject(items, total, page, limit, route)
   }
 
-  async getArticlesWithBuilder(builder: SelectQueryBuilder<Article>, page = 1, limit = 20) {
+  async getArticlesWithBuilder (builder: SelectQueryBuilder<Article>, page = 1, limit = 20) {
     const items = await builder
       .take(limit)
       .skip((page - 1) * limit)
@@ -172,7 +169,7 @@ export class ArticleService {
     if (!isEmpty(items)) {
       await Promise.all([
         this.loadCategory(items),
-        this.loadUser(items),
+        this.loadUser(items)
       ])
     }
     return items
@@ -180,11 +177,11 @@ export class ArticleService {
 
   /**
    * 加载文章的分类
-   * 
-   * @param articles 
-   * @returns 
+   *
+   * @param articles
+   * @returns
    */
-  private async loadCategory(articles: Article[]) {
+  private async loadCategory (articles: Article[]) {
     const categories = await this.repo
       .createQueryBuilder()
       .select()
@@ -196,11 +193,11 @@ export class ArticleService {
 
   /**
    * 加载文章的分类
-   * 
-   * @param articles 
-   * @returns 
+   *
+   * @param articles
+   * @returns
    */
-  private async loadContent(items: Article[]) {
+  private async loadContent (items: Article[]) {
     const joinItems = await this.repo
       .createQueryBuilder()
       .select()
@@ -213,11 +210,11 @@ export class ArticleService {
 
   /**
    * 加载文章的作者信息
-   * 
-   * @param articles 
-   * @returns 
+   *
+   * @param articles
+   * @returns
    */
-  private async loadUser(articles: Article[]) {
+  private async loadUser (articles: Article[]) {
     const users = await this.repo
       .createQueryBuilder()
       .select()
@@ -227,53 +224,53 @@ export class ArticleService {
     return mergeItems(articles, users, 'user_id', 'user', 'id')
   }
 
-  async index(page: number, pageSize: number, { s }: { s?: string } = {}) {
-    const builder = this.repo.createQueryBuilder("p")
+  async index (page: number, pageSize: number, { s }: { s?: string } = {}) {
+    const builder = this.repo.createQueryBuilder('p')
     if (s) {
-      builder.where("title like :title", { title: `%${s}%` })
+      builder.where('title like :title', { title: `%${s}%` })
     }
 
     return await paginate<Article>(builder, { page, pageSize })
   }
 
-  bannerList() {
-    return this.repo.find({
-      select: ["id", "image", "slug", "title"],
+  async bannerList () {
+    return await this.repo.find({
+      select: ['id', 'image', 'slug', 'title'],
       where: {
-        status: ArticleStatusType.PUBLISHED,
+        status: ArticleStatusType.PUBLISHED
         // image: Not(null),
       },
       take: 5,
       order: {
-        published_at: "DESC",
-      },
+        published_at: 'DESC'
+      }
     } as any)
   }
 
-  async findBySlug(slug: string, options: { prev?: boolean, next?: boolean } = {}) {
+  async findBySlug (slug: string, options: { prev?: boolean, next?: boolean } = {}) {
     const { prev = false, next = false } = options
     const article = await this.repo
       .createQueryBuilder('a')
-      .where("a.slug = :slug", { slug })
+      .where('a.slug = :slug', { slug })
       .take(1)
       .getOne()
 
     if (article) {
-      Object.assign(article, { category: null, next: null, prev: null, user: null });
+      Object.assign(article, { category: null, next: null, prev: null, user: null })
       const articles = [article]
       await Promise.allSettled([
         this.loadCategory(articles),
         this.loadUser(articles),
         this.loadContent(articles),
         ...(prev ? [this.findPrev(article, article.published_at)] : []),
-        ...(next ? [this.findNext(article, article.published_at)] : []),
+        ...(next ? [this.findNext(article, article.published_at)] : [])
       ])
     }
 
     return article
   }
 
-  getBuilder(name = "a") {
+  getBuilder (name = 'a') {
     return this.repo.createQueryBuilder(name)
   }
 
@@ -282,11 +279,11 @@ export class ArticleService {
    * @param id
    * @param status
    */
-  async findById(id: number | string) {
+  async findById (id: number | string) {
     try {
       const a = await this.repo.findOne(id, {
         select: getColumnNames(this.repo),
-        relations: ["category", "user"],
+        relations: ['category', 'user']
       })
       return a
     } catch (error) {
@@ -294,18 +291,18 @@ export class ArticleService {
     }
   }
 
-  findPrevAndNext(id: string | number, published_at: Date): Promise<any> {
+  async findPrevAndNext (id: string | number, published_at: Date): Promise<any> {
     try {
       return Promise.allSettled([
         this.findPrev(id, published_at),
-        this.findNext(id, published_at),
+        this.findNext(id, published_at)
       ])
     } catch (error) {
-      return Promise.resolve([null, null])
+      return await Promise.resolve([null, null])
     }
   }
 
-  async findPrev(article: Article | number | string, published_at: Date): Promise<any> {
+  async findPrev (article: Article | number | string, published_at: Date): Promise<any> {
     const id = article instanceof Article ? article.id : article
     const conditions = { id: Not(id), public: true }
     let prev = null
@@ -314,7 +311,7 @@ export class ArticleService {
         .orderBy('published_at', 'DESC')
         .where({ ...conditions, published_at: LessThan(published_at) })
         .take(1)
-        .getOneOrFail();
+        .getOneOrFail()
     } catch (error) {
       // prev = null
     }
@@ -326,7 +323,7 @@ export class ArticleService {
     return prev
   }
 
-  async findNext(article: Article | number | string, published_at: Date) {
+  async findNext (article: Article | number | string, published_at: Date) {
     const id = article instanceof Article ? article.id : article
     const conditions = { id: Not(id), public: true }
     let next = null
@@ -335,7 +332,7 @@ export class ArticleService {
         .orderBy('published_at', 'ASC')
         .where({ ...conditions, published_at: MoreThan(published_at) })
         .take(1)
-        .getOneOrFail();
+        .getOneOrFail()
     } catch (error) {
       // next = null
     }
@@ -347,24 +344,24 @@ export class ArticleService {
     return next
   }
 
-  create(createArticleDto: CreateArticleDto): Promise<Article> {
+  async create (createArticleDto: CreateArticleDto): Promise<Article> {
     // 创建文章
     const article = {
       ...createArticleDto,
-      meta: defaultMeta(),
+      meta: defaultMeta()
     }
-    return this.repo.save(article)
+    return await this.repo.save(article)
   }
 
-  findAll() {
+  findAll () {
     return `This action returns all article`
   }
 
-  findOne(id: number) {
+  findOne (id: number) {
     return `This action returns a #${id} article`
   }
 
-  async update(id: number, updateArticleDto: UpdateArticleDto) {
+  async update (id: number, updateArticleDto: UpdateArticleDto) {
     await this.existSlug(id, updateArticleDto.slug)
     const { ...article } = updateArticleDto
     article.id = id
@@ -372,18 +369,18 @@ export class ArticleService {
     return await this.repo.findOneOrFail(id)
   }
 
-  remove(id: number) {
+  remove (id: number) {
     return `This action removes a #${id} article`
   }
 
-  async existSlug(id: number, slug: string) {
+  async existSlug (id: number, slug: string) {
     const existedSlugId = await this.repo
       .createQueryBuilder()
-      .select(["id"])
+      .select(['id'])
       .where({ id: Not(id), slug: slug })
       .getOne()
     if (existedSlugId) {
-      throw new Error("别名已被占用")
+      throw new Error('别名已被占用')
     }
   }
 }

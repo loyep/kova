@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { SProps, IContext } from 'ssr-types-react'
 import { IData } from '@/interface'
 import { Button, Card } from 'antd'
-import { useHistory } from 'react-router'
+import { useHistory, NavLink } from 'react-router-dom'
 
 export default (props: SProps) => {
   const { state, dispatch } = useContext<IContext<IData>>(window.STORE_CONTEXT)
@@ -17,7 +17,9 @@ export default (props: SProps) => {
 
   return (
     <div>
-      <Button onClick={onShowDetail}>test2</Button>
+      <NavLink to="/article/test">
+        <Button>test2</Button>
+      </NavLink>
       {((state?.indexData.data as any).items as any[]).map(item => (
         <Card title={item.title} style={{ width: '100%' }}>
         </Card>))}

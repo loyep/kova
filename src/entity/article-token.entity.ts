@@ -3,9 +3,9 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  DeleteDateColumn,
-} from "typeorm"
-import { BaseEntity, LocalDateTransformer,  } from "./_base.entity"
+  DeleteDateColumn
+} from 'typeorm'
+import { BaseEntity, LocalDateTransformer } from './_base.entity'
 
 export interface PostMeta {
   cover: string
@@ -13,36 +13,36 @@ export interface PostMeta {
   background: string
 }
 
-export function defaultMeta(): PostMeta {
+export function defaultMeta (): PostMeta {
   return {
-    cover: "",
-    background: "",
-    color: "",
+    cover: '',
+    background: '',
+    color: ''
   }
 }
 
 @Entity({
-  name: "article_tokens",
+  name: 'article_tokens',
   orderBy: {
-    id: "DESC",
-  },
+    id: 'DESC'
+  }
 })
 export class ArticleToken extends BaseEntity {
-  @PrimaryGeneratedColumn("increment")
+  @PrimaryGeneratedColumn('increment')
   id: number
 
-  @Column("int", { unsigned: true })
+  @Column('int', { unsigned: true })
   articleId: number
 
   @CreateDateColumn({
-    type: "timestamp",
+    type: 'timestamp',
     select: false,
     transformer: new LocalDateTransformer()
   })
   start_at: Date
 
   @DeleteDateColumn({
-    type: "timestamp",
+    type: 'timestamp',
     select: false,
     transformer: new LocalDateTransformer()
   })

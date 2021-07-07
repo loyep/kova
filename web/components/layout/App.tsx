@@ -7,27 +7,19 @@ import zhCN from 'antd/lib/locale/zh_CN';
 import React, { useEffect, useRef, useState } from 'react'
 import { Progress } from '../UI/Progress'
 import { Layout, Menu } from 'antd';
-import { useHistory, useLocation } from 'react-router';
+import { useRouteMatch, useLocation } from 'react-router';
 
 const { Header, Footer, Content } = Layout;
 const { SubMenu } = Menu;
 
 export default (props: LayoutProps) => {
-  const [current, setCurrent] = useState('')
-  const router = useLocation()
-  useEffect(() => {
-    setCurrent(router.pathname)
-  }, [])
-
-  useEffect(() => {
-    setCurrent(router.pathname)
-  }, [router])
+  const match = useRouteMatch();
 
   return (
     <ConfigProvider locale={zhCN}>
       <Layout>
         <Header style={{ top: 0, position: 'sticky' }}>
-          <Menu selectedKeys={[current]} mode="horizontal" theme="dark">
+          <Menu selectedKeys={[match.url]} mode="horizontal" theme="dark">
             <Menu.Item key="/">首页</Menu.Item>
             <Menu.Item key="app">文章</Menu.Item>
             <SubMenu key="SubMenu" title="Navigation Three - Submenu">
