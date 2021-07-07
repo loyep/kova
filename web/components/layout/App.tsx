@@ -23,7 +23,7 @@ export default (props: LayoutProps) => {
   return (
     <ConfigProvider locale={zhCN}>
       <Layout>
-        <Header style={{ top: 0, position: 'sticky' }}>
+        <Header style={{ top: 0, position: 'sticky', zIndex: 99 }}>
           <Menu selectedKeys={[match.url]} mode="horizontal" theme="dark">
             <Menu.Item key="/">首页</Menu.Item>
             <Menu.Item key="/article/testtt">
