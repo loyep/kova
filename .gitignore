@@ -1,5 +1,6 @@
 # compiled output
 /dist
+/build
 .nest
 /node_modules
 # Logs
@@ -39,3 +40,6 @@ kova.production.yml
 
 # yarn
 yarn.lock
+
+# npm
+package-lock.json
