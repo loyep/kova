@@ -16,6 +16,10 @@ const { SubMenu } = Menu;
 export default (props: LayoutProps) => {
   const match = useRouteMatch();
 
+  useEffect(() => {
+    console.log(match)
+  }, [match])
+
   return (
     <ConfigProvider locale={zhCN}>
       <Layout>
