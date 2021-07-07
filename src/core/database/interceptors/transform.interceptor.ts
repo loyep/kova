@@ -2,7 +2,6 @@ import { CallHandler, ExecutionContext, Injectable, NestInterceptor, PlainLitera
 import { ClassTransformOptions } from "@nestjs/common/interfaces/external/class-transform-options.interface"
 import { classToPlain } from "class-transformer"
 import { isObject } from 'lodash'
-import { Model } from "mongoose"
 import { Observable } from "rxjs"
 import { map } from "rxjs/operators"
 

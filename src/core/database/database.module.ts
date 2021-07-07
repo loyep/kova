@@ -4,7 +4,7 @@ import { ConfigService } from "@nestjs/config"
 import { TypeOrmLogger } from "../logger/typeorm.logger"
 import { CustomNamingStrategy } from "./naming.strategy"
 import { TypegooseModule } from "nestjs-typegoose";
-import { DatabaseModuleOptions, MongoDbConnectionOptions } from "./interfaces/database-module.interface"
+import { DatabaseModuleOptions } from "./interfaces/database-module.interface"
 import * as path from "path"
 import { Logger } from "typeorm/logger/Logger"
 
@@ -13,41 +13,7 @@ import { Logger } from "typeorm/logger/Logger"
   ]
 })
 export class DatabaseModule {
-
-  static createAsyncTypeGoose() {
-    return TypegooseModule.forRootAsync({
-      useFactory: (configService: ConfigService) => {
-        const config = configService.get('mongodb')
-        return {
-          uri: this.createMongoDbConnection({
-            host: config.host,
-            port: config.port || 27017,
-            database: config.database,
-            username: config.username,
-            password: config.password,
-          }),
-          useNewUrlParser: true,
-          useUnifiedTopology: true,
-          useCreateIndex: true,
-          useFindAndModify: false,
-        }
-      },
-      inject: [ConfigService]
-    })
-  }
-
-  private static createMongoDbConnection(options: MongoDbConnectionOptions) {
-    let { username, password, port, database, host } = options;
-
-    if (username && password) username += `:${password}`;
-    if (username) username += '@';
-
-    port = port ? `:${port}` : port;
-
-    database = database ? `/${database}` : database;
-    return `mongodb://${username}${host}${port}${database}`;
-  }
-
+  
   private static createAsyncTypeOrm({ entities = [] }: Partial<DatabaseModuleOptions>) {
     return TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigService) => {
