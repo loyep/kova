@@ -56,9 +56,7 @@ export class TransformInterceptor implements NestInterceptor {
     plainOrClass: unknown,
     options: ClassTransformOptions
   ): PlainLiteralObject {
-    if (plainOrClass instanceof Model) {
-      plainOrClass = plainOrClass.toJSON();
-    } else if (Array.isArray(plainOrClass)) {
+    if (Array.isArray(plainOrClass)) {
       return plainOrClass.map(obj => this.transformToPlain(obj, options))
     }
     return plainOrClass && plainOrClass.constructor !== Object

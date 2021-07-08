@@ -3,7 +3,6 @@ import { TypeOrmModule } from "@nestjs/typeorm"
 import { ConfigService } from "@nestjs/config"
 import { TypeOrmLogger } from "../logger/typeorm.logger"
 import { CustomNamingStrategy } from "./naming.strategy"
-import { TypegooseModule } from "nestjs-typegoose";
 import { DatabaseModuleOptions } from "./interfaces/database-module.interface"
 import * as path from "path"
 import { Logger } from "typeorm/logger/Logger"
@@ -18,8 +17,9 @@ export class DatabaseModule {
     return TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigService) => {
         const entityPath = path.join(__dirname ,"../../entity/**/*.entity{.ts,.js}")
-        const mysqlConf = configService.get('mysql', {})
-        const cache = configService.get('redis.default', {})
+
+        const cache = configService.get('redis.default') || {}
+        const mysqlConf = configService.get('mysql2') || {}
 
         return {
           type: 'mysql',
