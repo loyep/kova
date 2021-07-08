@@ -34,7 +34,7 @@ export class SsrRenderInterceptor implements NestInterceptor {
     const ssrRenderMeta = this.reflector.get(SSR_RENDER_METADATA, context.getHandler());
     const { cache = false, ...options } = { cache: false, stream: false, ...ssrRenderMeta }
     let result: any
-    const key = `${req.protocol}://${req.get('host')}${req.originalUrl}`
+    const key = `pid_${process.pid}_${req.protocol}://${req.get('host')}${req.originalUrl}`
     const noCache = req.get('cache-control') === 'no-cache'
     if (cache && !noCache) {
       result = await this.cache.get(key)

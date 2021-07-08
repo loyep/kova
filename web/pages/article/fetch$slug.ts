@@ -12,6 +12,6 @@ export default async (ctx: any) => {
   const data = await mockData()
   return {
     // 建议根据模块给数据加上 namespace防止数据覆盖
-    detailData: data
+    article: data
   }
 }
