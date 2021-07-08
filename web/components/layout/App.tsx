@@ -14,17 +14,13 @@ const { Header, Footer, Content } = Layout;
 const { SubMenu } = Menu;
 
 export default (props: LayoutProps) => {
-  const match = useRouteMatch();
-
-  useEffect(() => {
-    console.log(match)
-  }, [match])
+  const location = useLocation()
 
   return (
     <ConfigProvider locale={zhCN}>
       <Layout>
         <Header style={{ top: 0, position: 'sticky', zIndex: 99 }}>
-          <Menu selectedKeys={[match.url]} mode="horizontal" theme="dark">
+          <Menu selectedKeys={[location.pathname]} mode="horizontal" theme="dark">
             <Menu.Item key="/">首页</Menu.Item>
             <Menu.Item key="/article/testtt">
               <Link to="/article/testttt">
