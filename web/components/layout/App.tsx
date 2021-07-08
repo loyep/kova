@@ -16,6 +16,10 @@ const { SubMenu } = Menu;
 export default (props: LayoutProps) => {
   const location = useLocation()
 
+  useEffect(() => {
+    console.log(location)
+  }, [location])
+
   return (
     <ConfigProvider locale={zhCN}>
       <Layout>
