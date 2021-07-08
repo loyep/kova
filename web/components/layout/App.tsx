@@ -26,7 +26,7 @@ export default (props: LayoutProps) => {
         <Header style={{ top: 0, position: 'sticky', zIndex: 99 }}>
           <Menu selectedKeys={[location.pathname]} mode="horizontal" theme="dark">
             <Menu.Item key="/">首页</Menu.Item>
-            <Menu.Item key="/article/testtt">
+            <Menu.Item key="/article/testttt">
               <Link to="/article/testttt">
               文章
               </Link>
