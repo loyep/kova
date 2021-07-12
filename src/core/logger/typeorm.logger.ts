@@ -84,6 +84,6 @@ export class TypeOrmLogger implements Logger {
    * Log has its own level and message.
    */
   log(level: "log" | "info" | "warn", message: any, queryRunner?: QueryRunner) {
-    this.logger[level](message, "QueryRunner")
+    // this.logger[level](message, "QueryRunner")
   }
 }

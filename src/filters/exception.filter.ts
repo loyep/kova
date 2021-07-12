@@ -11,7 +11,7 @@ import {
 } from "@nestjs/common"
 import { MyHttpException } from "~/core/exceptions/my-http.exception"
 import { isString } from "lodash"
-import { ThrottlerException } from "@nestjs/throttler"
+// import { ThrottlerException } from "@nestjs/throttler"
 import { LoggerService } from "~/core/logger"
 
 @Catch()
@@ -38,11 +38,11 @@ export class HttpExceptionFilter implements ExceptionFilter {
         code: 401,
         message: exception.message,
       })
-    } else if (exception instanceof ThrottlerException) {
-      return res.status(HttpStatus.OK).send({
-        code: (exception as ThrottlerException).getStatus(),
-        message: "请求频繁，请稍后再试",
-      })
+    // } else if (exception instanceof ThrottlerException) {
+    //   return res.status(HttpStatus.OK).send({
+    //     code: (exception as ThrottlerException).getStatus(),
+    //     message: "请求频繁，请稍后再试",
+    //   })
     }
     // 对默认的 404 进行特殊处理
     return res.status(HttpStatus.OK).send({

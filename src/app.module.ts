@@ -1,5 +1,6 @@
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common'
-import { CacheModule, ConfigModule, LoggerModule } from './core'
+import { ConfigModule, LoggerModule } from './core'
+import { CacheModule } from './core/cache'
 import { LoggerMiddleware } from '~/middleware/logger.middleware'
 import { UserModule } from './modules/user'
 import { ArticleModule } from './modules/article/article.module'
@@ -10,7 +11,7 @@ import { DatabaseModule } from './core/database'
 import { AuthModule } from '~/modules/auth'
 
 @Module({
-  imports: [ConfigModule, CacheModule, LoggerModule, DatabaseModule.forRoot(), AuthModule, UserModule, CategoryModule, TagModule, TopicModule, ArticleModule]
+  imports: [ConfigModule, CacheModule.forRoot(), LoggerModule, DatabaseModule.forRoot(), AuthModule, UserModule, CategoryModule, TagModule, TopicModule, ArticleModule],
 })
 export class AppModule {
   configure (consumer: MiddlewareConsumer) {

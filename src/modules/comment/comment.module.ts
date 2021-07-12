@@ -8,10 +8,9 @@ import { CommentController } from "./comment.controller"
 import { CommentService } from "./comment.service"
 
 import { Comment } from "~/entity/comment.entity"
-import { AipModule } from "~/modules/aip"
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Comment]), AipModule],
+  imports: [TypeOrmModule.forFeature([Comment])],
   controllers: [CommentController],
   providers: [CommentService],
   exports: [CommentService],

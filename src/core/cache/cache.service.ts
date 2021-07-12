@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common"
-import { RedisService } from "@kova/nestjs-redis"
+import { RedisService } from "~/core/cache"
 import type { Redis } from "ioredis"
 import { LoggerService } from "../logger/logger.service"
 import { isFunction, isEmpty } from 'lodash'

@@ -1,5 +1,6 @@
 import { CacheService } from "~/core/cache"
-import { HttpService, Inject, Injectable } from "@nestjs/common"
+import { Inject, Injectable } from '@nestjs/common'
+import { HttpService } from '@nestjs/axios'
 import { firstValueFrom } from "rxjs"
 
 @Injectable()

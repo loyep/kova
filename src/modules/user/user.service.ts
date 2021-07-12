@@ -1,6 +1,5 @@
-import { CacheService } from '~/core/cache'
 import { User, UserStatus } from "~/entity/user.entity"
-import { Inject, Injectable } from "@nestjs/common"
+import { Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
 import { Like, Repository } from "typeorm"
 import { compareSync, hashSync } from "bcrypt"
@@ -12,13 +11,13 @@ import { FindConditions } from "typeorm/find-options/FindConditions"
 
 @Injectable()
 export class UserService {
-  @Inject(CacheService) private readonly cache: CacheService
+  // @Inject(CacheService) private readonly cache: CacheService
 
   constructor(
     @InjectRepository(User)
     private readonly repo: Repository<User>,
   ) {
-    console.log('cache', this.cache)
+    //
   }
 
   async list({

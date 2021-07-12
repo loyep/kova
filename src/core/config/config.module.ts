@@ -4,6 +4,7 @@ import * as yaml from 'js-yaml'
 import { resolve } from 'path'
 import * as fs from 'fs'
 import { merge } from "lodash"
+import { Config2Service } from "../config.service"
 
 const resolveFile = (file: string) => resolve(process.cwd(), file)
 
@@ -31,6 +32,12 @@ const imports = [
 @Global()
 @Module({
   imports,
+  providers: [
+    Config2Service
+  ],
+  exports:[ 
+    Config2Service,
+  ]
 })
 export class ConfigModule {
 }

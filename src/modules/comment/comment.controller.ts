@@ -20,7 +20,7 @@ import { ErrorCode } from "~/constants/error"
 import { CreateCommentDto } from "~/modules/comment/dto/create-comment.dto"
 import { UpdateCommentDto } from "~/modules/comment/dto/update-comment.dto"
 import { SolutionService } from "~/modules/aip/solution.service"
-import { Throttle } from "@nestjs/throttler";
+// import { Throttle } from "@nestjs/throttler";
 
 @Controller()
 export class CommentController {
@@ -31,7 +31,7 @@ export class CommentController {
 
   @ApiOperation({ summary: "分类列表", tags: ["comment"] })
   @Get(`${APIPrefix}comments`)
-  @Throttle(1, 60)
+  // @Throttle(1, 60)
   async list(@Query("s") s: string, @Query("page", ParsePagePipe) page: number) {
     return await this.commentService.paginate(page, { s })
   }
@@ -52,7 +52,7 @@ export class CommentController {
 
   // @ApiOperation({ summary: "根据slug查询分类", tags: ["comment"] })
   @Post(`${APIPrefix}comments`)
-  @Throttle(2, 60)
+  // @Throttle(2, 60)
   async create(@Req() req: Request, @Body() data: CreateCommentDto) {
     const conclusion = await this.solution.textCensorUserDefined(data.content)
     if (conclusion) {
